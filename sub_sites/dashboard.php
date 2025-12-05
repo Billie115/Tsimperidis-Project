@@ -18,7 +18,7 @@
 <main>
     <body>
          <div style="display: flex; flex-wrap:wrap; align-content:center; justify-content:center; gap:10px">
-            <div class="menu-items" onclick="window.location.href='etairies.php'">
+            <div class="menu-items" onclick="window.location.href='etairies.php'" style="background-image: url(../Images/aiteria.jpg);">
                 <i class="material-icons" style="font-size: 35px;">apartment</i>
                 <h2 style="margin-top:-3px ;">Εταιρίες </h2>
                 <p>Εταιρίες που συνεργαζόμαστε.</p>

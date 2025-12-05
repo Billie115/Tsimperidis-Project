@@ -7,7 +7,7 @@
     $host = "127.0.0.1";
     $username = "root";
     $password = "";
-    $db = "Antiprosopia";
+    $db = "car_agency_db";
 
     $conn = new mysqli($host, $username, $password, $db);
 
@@ -15,6 +15,8 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+?>
+<?php
 
     $sql = "SELECT * FROM Etairia";
     $result = $conn->query($sql);
