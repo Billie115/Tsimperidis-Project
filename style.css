@@ -42,3 +42,36 @@ footer {
     width: 100%;
 
 }
+
+/*----------------------------------*/
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 2px 2px 5px grey; /* match menu-items shadows */
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+table th {
+    background-color: #fff6a0; /* or pick a color matching your theme */
+    color: rgb(0, 0, 0);
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd; /* subtle separator */
+    font-size: 14px;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+    transform: scale(0.99);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
