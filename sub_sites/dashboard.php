@@ -18,7 +18,7 @@ if (!isset($_SESSION["username"])) {
 </head>
 
 <header>
-    <button>Log-out</button>
+    <a href="../index.php"><button>Log-out</button></a>
     <div id="heading-div">
         <h1 style="font-size:x-large">Αντιπροσωπία Αυτοκινήτων</h1>
     </div><br>

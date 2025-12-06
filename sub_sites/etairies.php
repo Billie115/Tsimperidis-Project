@@ -22,7 +22,7 @@ error_reporting(E_ALL);
 </head>
 
 <body>
-    <button onclick="history.back()">Back</button>
+    <a href="dashboard.php"><button>Back</button></a>
 
     <div>
         <h1>Λίστα Εταιριών</h1>
