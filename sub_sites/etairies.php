@@ -30,6 +30,7 @@ error_reporting(E_ALL);
 
 <body >
     <a href="dashboard.php"><button>Back</button></a>
+<<<<<<< HEAD
 
     <div style="text-align: center;">
         <h1>Λίστα Εταιριών</h1>
@@ -51,6 +52,48 @@ error_reporting(E_ALL);
 
             <div class="panel-content">
             </div>
+=======
+    <div>
+        <h1>Λίστα Εταιριών</h1>
+                <div id="filterPanel" class="filter-panel">
+                    <div class="panel-header">
+                        <?php filter('Etairia'); ?>
+                    </div>
+
+                <div class="panel-content"></div>
+        
+        <h1>Delete</h1>
+        <form method="post">
+            <?php $cars = select("onoma", "Etairia"); ?>
+
+            <select id="cars" name="car">
+                <?php foreach ($cars as $car): ?>
+                    <option value="<?= htmlspecialchars($car['onoma']) ?>">
+                        <?= htmlspecialchars($car['onoma']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+
+            <button type="submit" name="delete">Delete</button>
+        </form>
+
+        <?php
+        if (isset($_POST['delete'])) {
+            $name = $_POST['car']; // the selected item
+
+            // safer delete using prepared statement
+            $stmt = $conn->prepare("DELETE FROM Etairia WHERE onoma = ?");
+            $stmt->bind_param("s", $name);
+            $stmt->execute();
+            $stmt->close();
+
+            echo "Deleted: " . htmlspecialchars($name);
+        }
+        ?>
+
+
+        </form>
+>>>>>>> c7315b371797b68fcb7dee9e4599f56669fd00ea
     </div>
 </body>
 
