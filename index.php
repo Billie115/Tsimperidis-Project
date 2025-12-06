@@ -1,10 +1,5 @@
 <?php
-$host = "localhost";
-$username = "root";
-$password = "";
-//$db = "car_agency_db";
-$db = "car_agency";
-$conn = new mysqli($host, $username, $password, $db);
+include("temporarydb.php");
 
 ob_start();
 session_start();
