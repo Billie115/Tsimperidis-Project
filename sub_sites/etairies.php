@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 <?php
     include("temporarydb.php");
     include("functions.php");
-    if($_SERVER['REQUEST_METHOD']=="POST"){
+    if($_SERVER['REQUEST_METHOD']=="POST"&& isset($_POST['add'])){
     $kodikos_etairias = trim($_POST["kodikos_etairias"]);
     $onoma_etairias = trim($_POST["onoma_etairias"]);
     $xora_proeleusis = trim($_POST["xora_proeleusis"]);
@@ -30,7 +30,6 @@ error_reporting(E_ALL);
 
 <body >
     <a href="dashboard.php"><button>Back</button></a>
-<<<<<<< HEAD
 
     <div style="text-align: center;">
         <h1>Λίστα Εταιριών</h1>
@@ -41,7 +40,7 @@ error_reporting(E_ALL);
         <input type="text" name='onoma_etairias' placeholder="Όνομα εταιρίας" required>
         <input type="text" name='xora_proeleusis' placeholder="Χόρα Προέλευσης" required>
         <input type="text" name='tilefono_etairias' placeholder="Τηλέφωνο εταιρίας" required>
-        <button type="submit">Προσθήκη</button>
+        <button type="submit" name='add'>Προσθήκη</button>
             
          </form>
         </div>
@@ -52,15 +51,6 @@ error_reporting(E_ALL);
 
             <div class="panel-content">
             </div>
-=======
-    <div>
-        <h1>Λίστα Εταιριών</h1>
-                <div id="filterPanel" class="filter-panel">
-                    <div class="panel-header">
-                        <?php filter('Etairia'); ?>
-                    </div>
-
-                <div class="panel-content"></div>
         
         <h1>Delete</h1>
         <form method="post">
@@ -78,8 +68,8 @@ error_reporting(E_ALL);
         </form>
 
         <?php
-        if (isset($_POST['delete'])) {
-            $name = $_POST['car']; // the selected item
+                if (isset($_POST['delete'])) {
+            $name = trim($_POST['car']); // the selected item
 
             // safer delete using prepared statement
             $stmt = $conn->prepare("DELETE FROM Etairia WHERE onoma = ?");
@@ -93,7 +83,6 @@ error_reporting(E_ALL);
 
 
         </form>
->>>>>>> c7315b371797b68fcb7dee9e4599f56669fd00ea
     </div>
 </body>
 
