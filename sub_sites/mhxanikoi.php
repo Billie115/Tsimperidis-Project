@@ -48,7 +48,7 @@ error_reporting(E_ALL);
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php filter('upallhloi'); ?>
+                <?php filter('upallhloi', "idikothta = 'mhxanikos'"); ?>
             </div>
 
             <div class="panel-content"></div>
