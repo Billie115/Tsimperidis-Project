@@ -36,13 +36,14 @@
     {
         global $conn;
 
-        $columns = implode(", ", array_keys($data));
+       // $columns = implode(", ", array_keys($data));
         $values  = "'" . implode("', '", array_values($data)) . "'";
 
-        $sql = "INSERT INTO $table ($columns) VALUES ($values)";
+        $sql = "INSERT INTO $table  VALUES ($values)";
 
         if (!$conn->query($sql)) {
             die("SQL Insert Error: " . $conn->error);
+    
         }
     }
 
@@ -110,6 +111,7 @@
         if (!empty($rows)) {
             echo '<table border="1" cellpadding="5" cellspacing="0" style="margin-top:20px;">';
             echo '<tr>';
+            
             foreach ($columns_to_show as $col_name) {
                 echo '<th>' . htmlspecialchars($col_name) . '</th>';
             }
@@ -122,10 +124,10 @@
                 }
                 echo '</tr>';
             }
-
             echo '</table>';
         } else {
             echo '<p>No records found.</p>';
         }
+        
     }
 ?>
