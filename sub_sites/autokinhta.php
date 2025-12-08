@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 <?php
     include("temporarydb.php");
     include("functions.php");
-    if($_SERVER['REQUEST_METHOD']=="POST"){
+    if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
     $VIN = trim($_POST["VIN"]);
     $xroma = trim($_POST["xroma"]);
     $etos_agoras = trim($_POST["etos_agoras"]);
@@ -43,7 +43,7 @@ error_reporting(E_ALL);
         <input type="number" name="etos_kataskeuis" placeholder="Έτος κατασκευής" required>
         <input type="number" name="endictikh_timh" placeholder="Ενδικτική τιμή" required>
         
-        <button type="submit">Προσθήκη</button>
+        <button type="submit" name="add">Προσθήκη</button>
             
          </form>
         </div>

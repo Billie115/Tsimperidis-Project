@@ -27,7 +27,7 @@ error_reporting(E_ALL);
         <h1>Πωλήσεις</h1>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php filter('Poliseis'); ?>
+                <?php filter('poliseis'); ?>
             </div>
 
             <div class="panel-content"></div>

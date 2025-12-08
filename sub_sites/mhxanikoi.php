@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 <?php
     include("temporarydb.php");
     include("functions.php");
-      if($_SERVER['REQUEST_METHOD']=="POST"){
+      if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
     $kodikos_mixanikou = trim($_POST["kodikos_mixanikou"]);
     $onoma_mixanikou = trim($_POST["onoma_mixanikou"]);
     $eponimo_mixanikou = trim($_POST["eponimo_mixanikou"]);
@@ -42,13 +42,13 @@ error_reporting(E_ALL);
         <label for="Hm-pros">Ημερομηνία Προσλυψης:</label>
         <input type="date" name='Hm-pros' required>
         </div>
-        <button type="submit">Προσθήκη</button>
+        <button type="submit" name="add">Προσθήκη</button>
             
          </form>
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php filter('Michanikos'); ?>
+                <?php filter('upallhloi'); ?>
             </div>
 
             <div class="panel-content"></div>
