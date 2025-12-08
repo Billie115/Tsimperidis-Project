@@ -14,7 +14,7 @@ error_reporting(E_ALL);
     $onoma_etairias = trim($_POST["onoma_etairias"]);
     $xora_proeleusis = trim($_POST["xora_proeleusis"]);
     $tilefono = trim($_POST["tilefono_etairias"]);
-        insert('Etairia',[$kodikos_etairias, $onoma_etairias, $xora_proeleusis, $tilefono]);
+        insert('etairia',[$kodikos_etairias, $onoma_etairias, $xora_proeleusis, $tilefono]);
     }
 ?>
 
@@ -54,7 +54,7 @@ error_reporting(E_ALL);
         
         <h1>Delete</h1>
         <form method="post">
-            <?php $cars = select("onoma", "Etairia"); ?>
+            <?php $cars = select("onoma", "etairia"); ?>
 
             <select id="cars" name="car">
                 <?php foreach ($cars as $car): ?>

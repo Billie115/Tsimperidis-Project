@@ -90,7 +90,12 @@
             : array_column($columns, 'COLUMN_NAME');
 
         // Get data rows from the table
-        $rows = select('*', $table);
+        if ($where === '') {
+            $rows = select('*', $table);
+        }
+        elseif ($where) {
+            $rows = select('*', $table, $where);
+        }
 
         // Start output
         echo '<form method="post">';
