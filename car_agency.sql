@@ -10,6 +10,7 @@ CREATE TABLE thlefono_etairias(
     id_etairias CHAR(4) NOT NULL,
     FOREIGN KEY (id_etairias) REFERENCES etairia(id_etairias)
 );
+
 CREATE TABLE montelo(
     id_montelou CHAR(4) PRIMARY KEY,
     onomasia VARCHAR(20) UNIQUE NOT NULL,
