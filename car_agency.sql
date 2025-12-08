@@ -1,64 +1,72 @@
-CREATE TABLE Etairia(
-    koddikos_etairias CHAR(4) PRIMARY KEY,
+CREATE TABLE etairia(
+    id_etairias CHAR(4) PRIMARY KEY,
     onoma VARCHAR(30) UNIQUE NOT NULL,
-    xora VARCHAR(20) NOT NULL,
-    tilefono CHAR(10) UNIQUE NOT NULL);
+    xwra VARCHAR(20) NOT NULL,
+    thlefwno1 CHAR(10) UNIQUE NOT NULL,
+    thlefwno2 CHAR(10) UNIQUE, --2o thl mporei na einai null an den exei
+    thlefwno3 CHAR(10), --3o thl an exei h etairia, kai ebgala to unique se periptwhsh pou exei thl apo ta kentrika
+    etairiko_afm VARCHAR(9) UNIQUE NOT NULL); --to exei ka8e aiteria, oxi oles h megales nomizw alla sthn periptwsh mas prepei na exoun oles nmzw.
 
-CREATE TABLE Modelo(
-    kodikos_modelu INT PRIMARY KEY,
-    onomasia VARCHAR(30) UNIQUE NOT NULL,
-    kuvismo_kinitira INT,
-    Kafsimo_kinitira VARCHAR(20) NOT NULL,
-    katigoria ENUM('sport', 'SUV', 'IX') NOT NULL,
-    apo_etairia CHAR(4) NOT NULL,
-    FOREIGN KEY (apo_etairia) REFERENCES Etairia(kodikos_etairias));
+CREATE TABLE montelo(
+    id_montelou CHAR(4) PRIMARY KEY,
+    onoma VARCHAR(20) UNIQUE NOT NULL,
+    id_aiterias CHAR(4),
+    FOREIGN KEY (id_aiterias) REFERENCES etairia(id_etairias));
 
-CREATE TABLE Autokinhto(
-    VIN CHAR(17) PRIMARY KEY,
-    xroma VARCHAR(15) NOT NULL,
-    etos_agoras YEAR,
-    modelo INT NOT NULL,
-    etos_kataskevis YEAR NOT NULL,
-    endictikh_timh DECIMAL(11,2),
-    FOREIGN KEY (modelo) REFERENCES Modelo(kodikos_modelu));
+CREATE TABLE autokinhto(
+    VIN CHAR(17) UNIQUE, --eimai sxedon shgouros oti vin einai kati pou exei ka8e ama3i, ebala to id giati 8eloume kati na 3exorhzoume emeis sthn aiteria
+    id_autonikhtou CHAR(4) PRIMARY KEY,
+    marka VARCHAR(30) UNIQUE NOT NULL, --onoma aiterias
+    montelo VARCHAR(20) UNIQUE NOT NULL,
+    aitos_kataskebhs YEAR, --onoma montelou
+    eidos_mhxanhs VARCHAR(20), --ti kaei, benzinh, petreleo, hybrid, hlektriko.
+    kibhka INT(5) NOT NULL,
+    tansmission VARCHAR(20) NOT NULL, --AFTOMATO, ME TAXHTHTES.
+    xhliometra DECIMAL(8,2), --null an einai neo, timh an einai metaxeirhsmeno
+    xrwma VARCHAR(15) NOT NULL,
+    endiktikh_timh DECIMAL(11,2) NOT NULL,
+    katastash VARCHAR(20), --dia8eshmo, poulhmeno, h kati allo den mou erxete kati allo.
+    FOREIGN KEY (montelo) REFERENCES montelo(id_montelou),
+    FOREIGN KEY (marka) REFERENCES etairia(id_etairias));
 
-CREATE TABLE Pelatis(
-    AT CHAR(8) PRIMARY KEY,
+CREATE TABLE pelates(
+    afm_pelath VARCHAR(9) PRIMARY KEY,
     onoma VARCHAR(30) NOT NULL,
-    eponimo VARCHAR(30));
+    epwnumo VARCHAR(30) NOT NULL,
+    email VARCHAR(254), NOT NULL,
+    thlefwno1 CHAR(10) UNIQUE NOT NULL,
+    thlefwno2 CHAR(10));
 
-CREATE TABLE Politis(
-    kodikos_ypalilou CHAR(3) PRIMARY KEY,
+CREATE TABLE upallhloi(
+    id_upallhlou CHAR(4) PRIMARY KEY,
     onoma VARCHAR(20) NOT NULL,
-    eponimo VARCHAR(20),
-    hmpros DATE NOT NULL);
+    epwnumo VARCHAR(20) NOT NULL,
+    thlefwno1 CHAR(10) UNIQUE NOT NULL,
+    thlefwno2 CHAR(10),
+    hm_proslhpshs DATE NOT NULL,
+    idikothta VARCHAR(30), NOT NULL --poliths, mhxanikos, manager, klp
+    );
 
-CREATE TABLE Poliseis(
-    kodikos_polishs CHAR(17) PRIMARY KEY,
-    hmago DATE NOT NULL,
+CREATE TABLE poliseis(
+    id_polishs CHAR(17) PRIMARY KEY,
+    hm_ago DATE NOT NULL,
     timh DECIMAL(11,2) NOT NULL,
-    autokinito CHAR(17) UNIQUE NOT NULL,
-    pelatis CHAR(8) NOT NULL,
-    ypalilos CHAR(3) NOT NULL,
-    FOREIGN KEY (autokinito) REFERENCES Autokinhto(VIN),
-    FOREIGN KEY (pelatis) REFERENCES Pelatis(AT),
-    FOREIGN KEY (ypalilos) REFERENCES Politis(kodikos_ypalilou));
+    id_autonikhtou CHAR(17) UNIQUE NOT NULL,
+    afm_pelath CHAR(8) NOT NULL,
+    id_upallhlou CHAR(3) NOT NULL,
+    FOREIGN KEY (id_autonikhtou) REFERENCES autokinhto(id_autonikhtou),
+    FOREIGN KEY (afm_pelath) REFERENCES pelates(afm_pelath),
+    FOREIGN KEY (id_upallhlou) REFERENCES upallhloi(id_upallhlou));
 
-CREATE TABLE Michanikos(
-    kodikos_Michanikou CHAR(3) PRIMARY KEY,
-    onoma VARCHAR(20) NOT NULL,
-    eponimo VARCHAR(20),
-    hmpros DATE NOT NULL);
-
-CREATE TABLE Syntirish(
-    kodikos CHAR(17) PRIMARY KEY,
+CREATE TABLE syntirish(
+    id_suntirishs CHAR(17) PRIMARY KEY,
     hm_rant DATE NOT NULL,
     perigrafi TEXT NOT NULL,
-    autokinito CHAR(17) NOT NULL,
-    michanikos CHAR(3),
-    FOREIGN KEY (autokinito) REFERENCES Autokinhto(VIN),
-    FOREIGN KEY (michanikos) REFERENCES Michanikos(kodikos_Michanikou));
+    id_upallhlou CHAR(3),
+    pinakida_kukloforias VARCHAR(8), --morfh: AAA-1234
+    FOREIGN KEY (id_upallhlou) REFERENCES upallhloi(id_upallhlou));
 
 CREATE TABLE login( 
     username VARCHAR(20) PRIMARY KEY,
-    password VARCHAR(30) NOT NULL);
+    password VARCHAR(30) NOT NULL,
+    admin ENUM('True', 'False'));
