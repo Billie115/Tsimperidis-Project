@@ -1,0 +1,31 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap);
+
+*{
+    font-family: Roboto Condensed;
+}
+.backround{
+    background-color: aqua;
+    height: 100vh;
+    width: 100vw;
+}
+.header{
+    text-align: center;
+    font-size: 27px;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    background: purple;
+    backdrop-filter: blur(20px);
+}
+.sidebar{
+    text-align: center;
+    font-size: 1vw;
+    border: 2px, solid, lightgrey;
+    border-radius: 10px;
+    background: blue;
+    width: 15vw;
+    height: 100%;
+}
+.sidebar-content{
+    border-bottom: 2px solid lightgray;
+    border-radius: 10px;
+}
