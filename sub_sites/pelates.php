@@ -9,11 +9,11 @@ error_reporting(E_ALL);
 <?php
     include("temporarydb.php");
     include("functions.php");
-      if($_SERVER['REQUEST_METHOD']=="POST"){
+      if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
     $AT = trim($_POST["AT"]);
     $onoma_pelati = trim($_POST["onoma_pelati"]);
     $eponimo_pelati = trim($_POST["eponimo_pelati"]);
-        insert('Pelatis',[$AT, $onoma_pelati, $eponimo_pelati]);
+        insert('pelates',[$AT, $onoma_pelati, $eponimo_pelati]);
     }
 ?>
 
@@ -39,13 +39,13 @@ error_reporting(E_ALL);
         <input type="text" name='onoma_pelati' placeholder="Όνομα " required>
         <input type="text" name='eponimo_pelati' placeholder="Επώνυμο" required>
         
-        <button type="submit">Προσθήκη</button>
+        <button type="submit" name="add">Προσθήκη</button>
             
          </form>
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php filter('Pelatis'); ?>
+                <?php filter('pelates'); ?>
             </div>
 
             <div class="panel-content"></div>

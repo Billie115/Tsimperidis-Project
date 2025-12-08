@@ -74,7 +74,7 @@
         }
     }
 
-    function filter($table) {
+    function filter($table, $where='') {
         global $conn; // if select() uses $conn
 
         // Get column names

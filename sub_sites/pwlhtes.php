@@ -10,12 +10,12 @@ error_reporting(E_ALL);
     include("temporarydb.php");
     include("functions.php");
     
-      if($_SERVER['REQUEST_METHOD']=="POST"){
+      if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
     $kodikos_ypallhlou = trim($_POST["kodikos_ypallhlou"]);
     $onoma_ypallhlou = trim($_POST["onoma_ypallhlou"]);
     $eponimo_ypallhlou = trim($_POST["eponimo_ypallhlou"]);
     $Hm_pros = trim($_POST["Hm-pros"]);
-        insert('Politis',[$kodikos_ypallhlou, $onoma_ypallhlou, $eponimo_ypallhlou, $Hm_pros]);
+        insert('upallhloi',[$kodikos_ypallhlou, $onoma_ypallhlou, $eponimo_ypallhlou, $Hm_pros]);
     }
 ?>
 
@@ -45,13 +45,13 @@ error_reporting(E_ALL);
         <label for="Hm-pros">Ημερομηνία Προσλυψης:</label>
         <input type="date" name='Hm-pros' required>
         </div>
-        <button type="submit">Προσθήκη</button>
+        <button type="submit" name="add">Προσθήκη</button>
             
          </form>
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php filter('Politis'); ?>
+                <?php filter('upallhloi'); ?>
             </div>
 
             <div class="panel-content"></div>

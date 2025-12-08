@@ -55,4 +55,4 @@ INSERT INTO syntirish VALUES
 ('S000000000000005', '2024-04-05', 'Ακύρωση ραντεβού', 'U003', 'OPA-0001', 'akurw8hke');
 
 INSERT INTO login VALUES
-('admin', 'admin123', 'True');
+('admin', '0000', 'True');

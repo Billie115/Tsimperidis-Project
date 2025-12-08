@@ -57,7 +57,7 @@ CREATE TABLE poliseis(
     hm_ago DATE NOT NULL,
     timh DECIMAL(11,2) NOT NULL,
     VIN CHAR(17) UNIQUE NOT NULL,
-    afm_pelath CHAR(8) NOT NULL,
+    afm_pelath CHAR(9) NOT NULL,
     id_upallhlou CHAR(4) NOT NULL,
     FOREIGN KEY (VIN) REFERENCES autokinhto(VIN),
     FOREIGN KEY (afm_pelath) REFERENCES pelates(afm_pelath),
