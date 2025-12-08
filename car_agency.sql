@@ -14,10 +14,11 @@ CREATE TABLE montelo(
     FOREIGN KEY (id_aiterias) REFERENCES etairia(id_etairias));
 
 CREATE TABLE autokinhto(
-    VIN CHAR(17) UNIQUE, --eimai sxedon shgouros oti vin einai kati pou exei ka8e ama3i, ebala to id giati 8eloume kati na 3exorhzoume emeis sthn aiteria
     id_autonikhtou CHAR(4) PRIMARY KEY,
     marka VARCHAR(30) UNIQUE NOT NULL, --onoma aiterias
     montelo VARCHAR(20) UNIQUE NOT NULL,
+    VIN VARCHAR(17) UNIQUE NOT NULL, --(sta ellhnika einai kodikos plaisiou)eimai sxedon shgouros oti vin einai kati pou exei ka8e ama3i, ebala to id giati 8eloume kati na 3exorhzoume emeis sthn aiteria
+    ari8mos_kinhthra VARCHAR(17),
     aitos_kataskebhs YEAR, --onoma montelou
     eidos_mhxanhs VARCHAR(20), --ti kaei, benzinh, petreleo, hybrid, hlektriko.
     kibhka INT(5) NOT NULL,
