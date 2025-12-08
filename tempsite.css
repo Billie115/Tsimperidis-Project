@@ -1,31 +1,34 @@
 @import url(https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap);
 
 *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: Roboto Condensed;
 }
-.backround{
-    background-color: aqua;
-    height: 100vh;
-    width: 100vw;
-}
-.header{
-    text-align: center;
-    font-size: 27px;
-    border: 2px solid lightgrey;
-    border-radius: 10px;
-    background: purple;
-    backdrop-filter: blur(20px);
-}
 .sidebar{
-    text-align: center;
-    font-size: 1vw;
-    border: 2px, solid, lightgrey;
-    border-radius: 10px;
-    background: blue;
-    width: 15vw;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100%;
+    width: 20vw;
+    background: #11101d;
 }
-.sidebar-content{
-    border-bottom: 2px solid lightgray;
-    border-radius: 10px;
+.sidebar .logo-details{
+    height: 8vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.sidebar .logo-details i{
+    font-size: 3vw;
+    color: #fff;
+    background: red;
+    height: 50px;
+    min-width: 78px;
+}
+.sidebar .logo-details .logo_name{
+    font-size: 4vw;
+    color: #fff;
+    font-weight: 600;
 }

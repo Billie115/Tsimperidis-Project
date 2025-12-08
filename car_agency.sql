@@ -17,7 +17,7 @@ CREATE TABLE autokinhto(
     id_autonikhtou CHAR(4) PRIMARY KEY,
     marka VARCHAR(30) UNIQUE NOT NULL, --onoma aiterias
     montelo VARCHAR(20) UNIQUE NOT NULL,
-    VIN VARCHAR(17) UNIQUE NOT NULL, --(sta ellhnika einai kodikos plaisiou)eimai sxedon shgouros oti vin einai kati pou exei ka8e ama3i, ebala to id giati 8eloume kati na 3exorhzoume emeis sthn aiteria
+    VIN VARCHAR(17) UNIQUE NOT NULL, --(sta ellhnika einai ari8mos plaisiou)eimai sxedon shgouros oti vin einai kati pou exei ka8e ama3i, ebala to id giati 8eloume kati na 3exorhzoume emeis sthn aiteria
     ari8mos_kinhthra VARCHAR(17),
     aitos_kataskebhs YEAR, --onoma montelou
     eidos_mhxanhs VARCHAR(20), --ti kaei, benzinh, petreleo, hybrid, hlektriko.
@@ -63,8 +63,9 @@ CREATE TABLE syntirish(
     id_suntirishs CHAR(17) PRIMARY KEY,
     hm_rant DATE NOT NULL,
     perigrafi TEXT NOT NULL,
-    id_upallhlou CHAR(3),
+    id_upallhlou CHAR(4),
     pinakida_kukloforias VARCHAR(8), --morfh: AAA-1234
+    katastash VARCHAR(20), --akurw8hke, oloklhrw8hke.
     FOREIGN KEY (id_upallhlou) REFERENCES upallhloi(id_upallhlou));
 
 CREATE TABLE login( 
