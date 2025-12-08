@@ -90,7 +90,7 @@
             : array_column($columns, 'COLUMN_NAME');
 
         // Get data rows from the table
-        $rows = select(implode(", ", $columns_to_show), $table);
+        $rows = select('*', $table);
 
         // Start output
         echo '<form method="post">';
@@ -120,7 +120,8 @@
             foreach ($rows as $row) {
                 echo '<tr>';
                 foreach ($columns_to_show as $col_name) {
-                    echo '<td>' . htmlspecialchars($row[$col_name]) . '</td>';
+                    $value = $row[$col_name] ?? '';   // if key doesn't exist → empty string
+                    echo '<td>' . htmlspecialchars($value) . '</td>';
                 }
                 echo '</tr>';
             }
