@@ -74,8 +74,8 @@
         }
     }
 
-    function filter($table, $where='') {
-        global $conn; // if select() uses $conn
+    function ShowTable($table, $where = '') {
+        global $conn;
 
         // Get column names
         $columns = select(
@@ -90,33 +90,12 @@
             : array_column($columns, 'COLUMN_NAME');
 
         // Get data rows from the table
-        if ($where === '') {
-            $rows = select('*', $table);
-        }
-        elseif ($where) {
-            $rows = select('*', $table, $where);
-        }
-
-        // Start output
-        echo '<form method="post">';
-        echo '<p>Select columns to display:</p>';
-
-        foreach ($columns as $col) {
-            $checked = in_array($col['COLUMN_NAME'], $columns_to_show) ? 'checked' : '';
-            echo '<label style="margin-right:10px;">';
-            echo '<input type="checkbox" name="selected_columns[]" value="' . $col['COLUMN_NAME'] . '" ' . $checked . '>';
-            echo htmlspecialchars($col['COLUMN_NAME']);
-            echo '</label>';
-        }
-
-        echo '<br><br><button type="submit">Filter</button>';
-        echo '</form>';
+        $rows = select('*', $table, $where);
 
         // Display the filtered table
         if (!empty($rows)) {
             echo '<table border="1" cellpadding="5" cellspacing="0" style="margin-top:20px;">';
             echo '<tr>';
-            
             foreach ($columns_to_show as $col_name) {
                 echo '<th>' . htmlspecialchars($col_name) . '</th>';
             }
@@ -125,7 +104,7 @@
             foreach ($rows as $row) {
                 echo '<tr>';
                 foreach ($columns_to_show as $col_name) {
-                    $value = $row[$col_name] ?? '';   // if key doesn't exist → empty string
+                    $value = $row[$col_name] ?? ''; // fallback if missing
                     echo '<td>' . htmlspecialchars($value) . '</td>';
                 }
                 echo '</tr>';
@@ -134,6 +113,41 @@
         } else {
             echo '<p>No records found.</p>';
         }
-        
     }
+    
+    function renderSelect(
+    $name, 
+    $table, 
+    $valueColumn, 
+    $displayLabel, 
+    $selected = '', 
+    $defaultLabel = '-- Όλες οι επιλογές --', 
+    $onchangeSubmit = false, 
+    $where = ''
+) {
+    global $conn;
+
+    // Fetch options with optional WHERE
+    $options = select($valueColumn, $table, $where);
+
+    echo "<label for=\"$name\">$displayLabel:</label>";
+    echo "<select id=\"$name\" name=\"$name\"";
+    if ($onchangeSubmit) echo " onchange=\"this.form.submit()\"";
+    echo ">";
+
+    // Default "All" option
+    $selectedAttr = $selected === '' ? 'selected' : '';
+    echo "<option value=\"\" $selectedAttr>$defaultLabel</option>";
+
+    foreach ($options as $opt) {
+        $value = htmlspecialchars($opt[$valueColumn]);
+        $isSelected = $selected === $value ? 'selected' : '';
+        echo "<option value=\"$value\" $isSelected>$value</option>";
+    }
+
+    echo "</select>";
+}
+
+
+
 ?>
