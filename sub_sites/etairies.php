@@ -48,7 +48,36 @@ error_reporting(E_ALL);
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php ShowTable('etairia_view') ?>
+                <form method="post">
+
+                    <input type="text" name="id_etairias" placeholder="Κωδικός εταιρίας" value="<?= htmlspecialchars($_POST['id_etairias'] ?? '') ?>">
+                    <input type="text" name="onoma" placeholder="Όνομα εταιρίας" value="<?= htmlspecialchars($_POST['onoma'] ?? '') ?>">
+                    <input type="text" name="xwra" placeholder="Χώρα προέλευσης" value="<?= htmlspecialchars($_POST['xwra'] ?? '') ?>">
+                    <input type="text" name="etairiko_afm" placeholder="ΑΦΜ εταιρίας" value="<?= htmlspecialchars($_POST['etairiko_afm'] ?? '') ?>">
+
+                    <button type="submit">Αναζήτηση</button>
+                </form>
+
+                <?php
+                    // Read filters
+                    $id = trim($_POST['id_etairias'] ?? '');
+                    $name = trim($_POST['onoma'] ?? '');
+                    $country = trim($_POST['xwra'] ?? '');
+                    $afm = trim($_POST['etairiko_afm'] ?? '');
+
+                    // Build WHERE
+                    $whereParts = [];
+
+                    if ($id !== '') $whereParts[] = "id_etairias LIKE '$id%'";
+                    if ($name !== '') $whereParts[] = "onoma LIKE '$name%'";
+                    if ($country !== '') $whereParts[] = "xwra LIKE '$country%'";
+                    if ($afm !== '') $whereParts[] = "etairiko_afm LIKE '$afm%'";
+
+                    $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
+
+                    // Show table
+                    ShowTable('etairia', $where);
+                ?>
             </div>
             <div class="panel-content"></div>
         </div>
