@@ -52,15 +52,11 @@ if (!isset($_SESSION["username"])) {
                 <h2 style="margin-top:-3px ;">Συντήριση</h2>
                 <p>Πωλήσεις της επιχείρησης μας.</p>
             </div>
-            <div class="menu-items" id="mixanikoi-div" onclick="window.location.href='mhxanikoi.php'">
-                <i class="material-icons" style="font-size: 35px;">engineering</i>
-                <h2 style="margin-top:-3px ;">Μηχανικοί</h2>
-                <p>Πωλήσεις της επιχείρησης μας.</p>
-            </div>
-            <div class="menu-items" id="pwlhtes-div" onclick="window.location.href='pwlhtes.php'">
+        
+            <div class="menu-items" id="pwlhtes-div" onclick="window.location.href='upallhloi.php'">
                 <i class="material-icons" style="font-size: 35px;">badge</i>
-                <h2 style="margin-top:-3px ;">Πωλητές</h2>
-                <p>Υπάλληλοι πωλήσεων.</p>
+                <h2 style="margin-top:-3px ;">Υπάλληλοι</h2>
+                <p>Υπάλληλοι Αντιπρωσοπίας</p>
             </div>
         </div>
     </body>
