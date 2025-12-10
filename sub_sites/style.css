@@ -1,321 +1,167 @@
-/* ======================================
-   WILD MAXIMALIST UI THEME
-   ====================================== */
+/* ================================
+   EARLY 2000s GLOBAL LOOK
+   ================================ */
 
-/* GLOBAL VARIABLES (insane palette) */
-:root {
-    --bg1: #ff71ce;
-    --bg2: #01cdfe;
-    --bg3: #05ffa1;
-    --bg4: #b967ff;
-    --panel: #ffffffdd;
-    --text: #1a0033;
-    --border: #000;
-    --radius: 18px;
-}
-
-/* BODY — GRADIENT EXPLOSION */
 body {
+    background: #d6d6d6;
+    font-family: "Arial", sans-serif;
+    font-size: 12px;
+    color: #000;
     margin: 0;
     padding: 0;
-    font-family: "Poppins", "Comic Sans MS", sans-serif;
-    background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
-    background-size: 400% 400%;
-    animation: bgshift 10s infinite alternate;
-    color: var(--text);
 }
 
-@keyframes bgshift {
-    0% { background-position: 0% 50% }
-    100% { background-position: 100% 50% }
-}
-
-/* MAIN CONTAINER */
+/* Optional container (classic OG fixed layout) */
 .container {
-    width: 90%;
-    margin: 30px auto;
-    background: var(--panel);
-    border: 4px double #000;
-    border-radius: var(--radius);
-    padding: 25px;
-    box-shadow: 0 0 25px #0008;
-    backdrop-filter: blur(8px);
+    width: 960px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #999;
+    padding: 10px;
 }
 
-/* HEADERS — AGGRESSIVE + LOUD */
+/* ================================
+   HEADINGS (retro web)
+   ================================ */
+
 h1, h2, h3 {
-    font-family: "Bangers", sans-serif;
-    color: #000;
-    font-size: 36px;
+    font-family: "Verdana", sans-serif;
+    font-weight: bold;
+    color: #003366;
+    border-bottom: 1px solid #999;
+    padding-bottom: 4px;
     margin-bottom: 10px;
-    text-shadow: 3px 3px 0 #ffea00, -2px -2px 0 #00f7ff;
 }
 
-/* ======================================
-   TABLE — chunky, neon borders, cards
-   ====================================== */
+/* ================================
+   TABLES — REAL OG STYLE
+   ================================ */
 
 table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
-    border: 4px solid #000;
-    border-radius: var(--radius);
-    background: rgba(255,255,255,0.7);
+    width: 98%;                   /* less width = no edge collision */
+    margin: 15px auto;            /* centers + adds left/right margin */
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #666;
 }
 
 table th {
-    background: linear-gradient(90deg, #ffea00, #ff71ce);
-    padding: 14px;
-    font-size: 18px;
-    font-weight: bold;
-    border-bottom: 3px solid #000;
-    color: #000;
-    text-shadow: 1px 1px #fff;
+    background: #c0c0c0;         /* classic old header grey */
+    padding: 6px;
+    border: 1px solid #666;
+    font-size: 12px;
+    text-align: left;
 }
 
 table td {
-    padding: 12px;
-    border-bottom: 2px dashed #333;
-    background: rgba(255,255,255,0.6);
+    padding: 6px;
+    border: 1px solid #999;
+    font-size: 12px;
 }
 
-table tr:hover td {
-    background: #fffbcc;
-    box-shadow: inset 0 0 10px #ff0;
+table tr:hover {
+    background: #f0f0f0;
 }
 
-/* ======================================
-   INPUT FIELDS — glowing, playful
-   ====================================== */
+/* ================================
+   INPUTS — SHARP & SIMPLE
+   ================================ */
 
 input[type="text"],
 input[type="number"],
 select {
-    width: 80%;
-    padding: 10px 14px;
-    border: 3px solid #000;
-    border-radius: 12px;
-    background: #fff6f6;
-    font-size: 16px;
-    margin: 8px auto;
-    display: block;
-    transition: 0.2s;
-    box-shadow: 3px 3px 0 #000;
+    width: 200px;
+    padding: 4px;
+    border: 1px solid #666;
+    background: #ffffff;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color: #000;
 }
 
 input:focus,
 select:focus {
-    background: #ffffcc;
-    transform: rotate(-1deg) scale(1.05);
-    box-shadow: 5px 5px 0 #ff71ce;
-    outline: none;
+    border: 1px solid #000080;
+    background: #ffffe0; /* old-school focus yellow */
 }
 
-/* ======================================
-   BUTTONS — cartoon arcade style
-   ====================================== */
+/* Filter inputs smaller */
+.filter-input {
+    width: 180px !important;
+}
+
+/* ================================
+   BUTTONS — BEVELED LIKE 2001
+   ================================ */
 
 button,
-input[type="submit"] {
-    padding: 12px 22px;
-    border: 4px solid #000;
-    background: linear-gradient(135deg, #ffea00, #05ffa1, #ff71ce);
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 14px;
+input[type="submit"],
+.ui-btn {
+    padding: 4px 10px;
+    border: 2px outset #ccc;     /* OG bevel */
+    background: #e0e0e0;
+    font-size: 12px;
     cursor: pointer;
-    margin: 10px auto;
-    display: block;
-    transition: 0.25s;
-    box-shadow: 4px 4px 0 #000;
-    font-family: "Bangers", sans-serif;
+    font-family: Tahoma, sans-serif;
 }
 
 button:hover,
 input[type="submit"]:hover {
-    transform: scale(1.1) rotate(1deg);
-    background: linear-gradient(135deg, #01cdfe, #b967ff, #ffea00);
-    box-shadow: 6px 6px 0 #000;
+    background: #d0d0d0;
 }
 
-/* ======================================
-   FORM CARD — WILD PANEL
-   ====================================== */
+/* ================================
+   RETRO FORM BOXES
+   ================================ */
 
 .form-card {
-    background: rgba(255,255,255,0.8);
-    border: 4px dashed #000;
-    padding: 20px;
-    border-radius: var(--radius);
-    box-shadow: 0 0 15px #0008;
-    margin-bottom: 25px;
+    background: #efefef;
+    padding: 10px;
+    border: 1px solid #999;
+    width: 80%;
+    margin: 15px auto;
 }
 
-/* ======================================
-   FILTER WRAPPER
-   ====================================== */
+.form-card h2 {
+    font-size: 14px;
+    margin-top: 0;
+}
+
+/* ================================
+   FILTER SECTION
+   ================================ */
 
 .filter-wrapper {
-    background: rgba(255,255,255,0.75);
-    border: 3px dotted #000;
-    padding: 20px;
-    border-radius: 20px;
-    margin: 20px auto;
-    width: 70%;
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+    background: #efefef;
+    border: 1px solid #999;
 }
 
 .filter-row {
-    margin: 12px 0;
+    margin: 6px 0;
 }
 
-.filter-input {
-    width: 70% !important;
+/* ================================
+   SELECT LABELS — OLD STYLE
+   ================================ */
+
+.ui-label {
+    font-size: 12px;
+    margin-bottom: 3px;
+    display: block;
 }
 
-/* ======================================
-   LINKS — neon pop
-   ====================================== */
+/* ================================
+   LINKS — BLUE 1998 STYLE
+   ================================ */
 
 a {
-    color: #0000ff;
-    font-weight: bold;
-    text-decoration: none;
-    background: #00f7ff;
-    padding: 3px 6px;
-    border-radius: 6px;
-    border: 2px solid #000;
+    color: #0000ee;
+    text-decoration: underline;
 }
 
 a:hover {
-    background: #ffea00;
-    color: #000;
-}
-
-/* ======================================
-   WILD MAXIMALIST UI THEME (your CSS transformed)
-   ====================================== */
-
-/* BODY — animated neon rave background */
-body {
-    font-family: "Poppins", "Comic Sans MS", sans-serif;
-    background: linear-gradient(135deg, #ff71ce, #01cdfe, #05ffa1, #b967ff);
-    background-size: 400% 400%;
-    animation: bgshift 10s infinite alternate;
-    color: #1a0033;
-}
-
-@keyframes bgshift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-/* ======================================
-   HEADING DIV — bold comic-style title box
-   ====================================== */
-
-#heading-div {
-    width: 90%;
-    text-align: center;
-    border: 4px double black;
-    border-radius: 20px;
-    box-shadow: 0 0 20px #0008, 5px 5px 0 #000;
-    margin: 20px auto;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(8px);
-}
-
-#heading-div h1,
-#heading-div h2 {
-    font-family: "Bangers", sans-serif;
-    font-size: 42px;
-    color: #000;
-    text-shadow: 3px 3px 0 #ffea00, -3px -3px 0 #00f7ff;
-}
-
-/* ======================================
-   MENU ITEMS — neon comic boxes
-   ====================================== */
-
-.menu-items {
-    font-size: 22px;
-    color: #000;
-    width: 250px;
-    height: 150px;
-    text-align: center;
-    padding: 30px;
-
-    border: 4px solid #000;
-    border-radius: 20px;
-
-    background: rgba(255,255,255,0.7);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    box-shadow: 4px 4px 0 #000, 0 0 20px #0007;
-
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* WILD hover */
-.menu-items:hover {
-    cursor: pointer;
-    transform: scale(1.18) rotate(2deg);
-    box-shadow: 6px 6px 0 #000, 0 0 30px #ff0;
-}
-
-/* ======================================
-   MENU BACKGROUND IMAGES
-   ====================================== */
-
-#etairia-div,
-#autokinita-div,
-#pelates-div,
-#poliseis-div,
-#syntirisi-div,
-#mixanikoi-div,
-#pwlhtes-div {
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay;
-    background-color: rgba(255,255,255,0.4);
-    border-radius: 20px;
-}
-
-#etairia-div        { background-image: url('Images/aiteria.jpg'); }
-#autokinita-div     { background-image: url('Images/sunset-cruise.jpg'); }
-#pelates-div        { background-image: url('Images/business-people-shaking-hands-finishing-up-meeting-deals-business-concept.jpg'); }
-#poliseis-div       { background-image: url('Images/business-man-counting-dollar-banknote-online-business-concept.jpg'); }
-#syntirisi-div      { background-image: url('Images/muscular-car-service-worker-repairing-vehicle.jpg'); }
-#mixanikoi-div      { background-image: url('Images/mid-section-mechanic-with-arms-crossed.jpg'); }
-#pwlhtes-div        { background-image: url('Images/man-is-man-working-laptop-testing-mobile-devices.jpg'); }
-
-/* ======================================
-   FOOTER — wild border & glow
-   ====================================== */
-
-footer {
-    width: 95%;
-    text-align: center;
-    padding: 12px;
-    border: 4px dotted black;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.7);
-    box-shadow: 0 0 15px #0006, 4px 4px 0 #000;
-    margin: 40px auto;
-    font-family: "Bangers", sans-serif;
-    font-size: 20px;
-}
-
-/* ======================================
-   IMAGE FITTING
-   ====================================== */
-
-.div_img {
-    height: 100%;
-    width: 100%;
-    border-radius: 15px;
+    color: #551a8b;
 }
