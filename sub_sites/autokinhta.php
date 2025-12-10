@@ -36,24 +36,18 @@ error_reporting(E_ALL);
     <a href="dashboard.php"><button>Back</button></a>
 <div class="form-wrapper">
 
-    <!-- Toggle Button -->
-    <button class="toggle-btn" onclick="toggleForm()">➕ Προσθήκη Αυτοκινήτων</button>
-
     <!-- Hidden Form -->
-    <div class="form-card" id="addCarForm">
-        <h2>Προσθήκη Αυτοκινήτων</h2>
-
+    <div style="text-align: center;">
+        <h1>Λίστα Εταιριών</h1>
+        <div style="border: 1px solid black; padding:10px; border-radius:10px; width:90%; justify-self:center">
+            <h2>Προσθήκη Εταιριών</h2>
         <form method="POST">
-
-            <input type="text" name="VIN" placeholder="VIN" required>
-            <input type="text" name="xroma" placeholder="Χρώμα" required>
-            <input type="number" name="etos_agoras" placeholder="Έτος αγοράς" required>
-            <input type="text" name="modelo" placeholder="Μοντέλο" required>
-            <input type="number" name="etos_kataskeuis" placeholder="Έτος κατασκευής" required>
-            <input type="number" name="endictikh_timh" placeholder="Ενδεικτική τιμή" required>
-
-            <button type="submit" name="add">Προσθήκη</button>
-
+        <input type="text" name='kodikos_etairias' placeholder="Κωδικός εταιρίας" required>
+        <input type="text" name='onoma_etairias' placeholder="Όνομα εταιρίας" required>
+        <input type="text" name='xora_proeleusis' placeholder="Χόρα Προέλευσης" required>
+        <input type="text" name='tilefono_etairias' placeholder="Εταιρικό ΑΦΜ" required>
+        <button type="submit" name='add'>Προσθήκη</button>
+            
         </form>
     </div>
 
@@ -125,7 +119,7 @@ function toggleForm() {
                 }
 
                 // Show table with combined filters
-                ShowTable('autokinhto', $where);
+                ShowTable('autokinhta_view', $where);
                 ?>
 
                 <form method="post">
@@ -164,33 +158,33 @@ function toggleForm() {
 
                     <div class="ui-filter-wrapper">
 
-    <input 
-        type="text" 
-        class="ui-input"
-        name="timh1" 
-        placeholder="Τιμή από" 
-        value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>"
-    >
+                        <input 
+                            type="text" 
+                            class="ui-input"
+                            name="timh1" 
+                            placeholder="Τιμή από" 
+                            value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>"
+                        >
 
-    <input 
-        type="text" 
-        class="ui-input"
-        name="timh2" 
-        placeholder="Τιμή έως" 
-        value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>"
-    >
+                        <input 
+                            type="text" 
+                            class="ui-input"
+                            name="timh2" 
+                            placeholder="Τιμή έως" 
+                            value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>"
+                        >
 
-    <button type="submit" class="ui-btn">Φιλτράρισμα</button>
+                        <button type="submit" class="ui-btn">Φιλτράρισμα</button>
 
-</div>
+                    </div>
 
 
                 </form>
 
 
 
-    </div>
-
-</body>
+            </div>
+        </div>                    
+    </body>
 
 </html>

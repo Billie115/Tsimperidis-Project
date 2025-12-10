@@ -39,7 +39,7 @@ error_reporting(E_ALL);
         <input type="text" name='kodikos_etairias' placeholder="Κωδικός εταιρίας" required>
         <input type="text" name='onoma_etairias' placeholder="Όνομα εταιρίας" required>
         <input type="text" name='xora_proeleusis' placeholder="Χόρα Προέλευσης" required>
-        <input type="text" name='tilefono_etairias' placeholder="Τηλέφωνο εταιρίας" required>
+        <input type="text" name='tilefono_etairias' placeholder="Εταιρικό ΑΦΜ" required>
         <button type="submit" name='add'>Προσθήκη</button>
             
          </form>
