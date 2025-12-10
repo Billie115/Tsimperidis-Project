@@ -130,8 +130,11 @@
     // Fetch options with optional WHERE
     $options = select($valueColumn, $table, $where);
 
-    echo "<label for=\"$name\">$displayLabel:</label>";
-    echo "<select id=\"$name\" name=\"$name\"";
+    echo "<div class='ui-select-wrapper'>";
+
+    echo "<label for=\"$name\" class=\"ui-label\">$displayLabel</label>";
+
+    echo "<select id=\"$name\" name=\"$name\" class=\"ui-select\"";
     if ($onchangeSubmit) echo " onchange=\"this.form.submit()\"";
     echo ">";
 
@@ -139,14 +142,17 @@
     $selectedAttr = $selected === '' ? 'selected' : '';
     echo "<option value=\"\" $selectedAttr>$defaultLabel</option>";
 
+    // Loop options
     foreach ($options as $opt) {
         $value = htmlspecialchars($opt[$valueColumn]);
-        $isSelected = $selected === $value ? 'selected' : '';
+        $isSelected = ($selected === $value) ? 'selected' : '';
         echo "<option value=\"$value\" $isSelected>$value</option>";
     }
 
     echo "</select>";
+    echo "</div>";
 }
+
 
 
 

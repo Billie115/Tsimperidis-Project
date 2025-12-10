@@ -29,27 +29,44 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Αυτοκίνητα</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body >
     <a href="dashboard.php"><button>Back</button></a>
-<div style="text-align: center;">
-        <div style="border: 1px solid black; padding:10px; border-radius:10px; width:90%; justify-self:center">
-            <h2>Προσθήκη Αυτοκινήτων</h2>
+<div class="form-wrapper">
+
+    <!-- Toggle Button -->
+    <button class="toggle-btn" onclick="toggleForm()">➕ Προσθήκη Αυτοκινήτων</button>
+
+    <!-- Hidden Form -->
+    <div class="form-card" id="addCarForm">
+        <h2>Προσθήκη Αυτοκινήτων</h2>
+
         <form method="POST">
-        <input type="text" name='VIN' placeholder="VIN" required>
-        <input type="text" name='xroma' placeholder="Χρόμα" required>
-        <input type="number" name='etos_agoras' placeholder="Έτος αγοράς" required>
-        <input type="text" name='modelo' placeholder="Μοντέλο " required>
-        <input type="number" name="etos_kataskeuis" placeholder="Έτος κατασκευής" required>
-        <input type="number" name="endictikh_timh" placeholder="Ενδικτική τιμή" required>
-        
-        <button type="submit" name="add">Προσθήκη</button>
-            
-         </form>
-        </div>
-    <div>
+
+            <input type="text" name="VIN" placeholder="VIN" required>
+            <input type="text" name="xroma" placeholder="Χρώμα" required>
+            <input type="number" name="etos_agoras" placeholder="Έτος αγοράς" required>
+            <input type="text" name="modelo" placeholder="Μοντέλο" required>
+            <input type="number" name="etos_kataskeuis" placeholder="Έτος κατασκευής" required>
+            <input type="number" name="endictikh_timh" placeholder="Ενδεικτική τιμή" required>
+
+            <button type="submit" name="add">Προσθήκη</button>
+
+        </form>
+    </div>
+
+</div>
+
+<script>
+function toggleForm() {
+    const form = document.getElementById("addCarForm");
+    form.style.display = (form.style.display === "block") ? "none" : "block";
+}
+</script>
+
+
         <h1>Αυτοκίνητα</h1>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
@@ -145,10 +162,28 @@ error_reporting(E_ALL);
                         ); ?>
                     <?php endif; ?>
 
-                    <br>
-                    <input type="text" name="timh1" placeholder="Τιμή από" value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>"><br>
-                    <input type="text" name="timh2" placeholder="Τιμή έως" value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>"><br>
-                    <button type="submit">Φιλτράρισμα</button>
+                    <div class="ui-filter-wrapper">
+
+    <input 
+        type="text" 
+        class="ui-input"
+        name="timh1" 
+        placeholder="Τιμή από" 
+        value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>"
+    >
+
+    <input 
+        type="text" 
+        class="ui-input"
+        name="timh2" 
+        placeholder="Τιμή έως" 
+        value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>"
+    >
+
+    <button type="submit" class="ui-btn">Φιλτράρισμα</button>
+
+</div>
+
 
                 </form>
 
