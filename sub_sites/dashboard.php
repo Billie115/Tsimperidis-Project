@@ -32,6 +32,11 @@ if (!isset($_SESSION["username"])) {
                 <h2 style="margin-top:-3px ;">Εταιρίες </h2>
                 <p>Εταιρίες που συνεργαζόμαστε.</p>
             </div>
+            <div class="menu-items" onclick="window.location.href='montela.php'" id="montelo-div">
+                <i class="material-icons" style="font-size: 35px;">apartment</i>
+                <h2 style="margin-top:-3px ;">Μοντέλα </h2>
+                <p>Μοντέλα Αυτοκινήτων.</p>
+            </div>
             <div class="menu-items" id="autokinita-div" onclick="window.location.href='autokinhta.php'">
                 <i class="material-icons" style="font-size: 35px;">directions_car</i>
                 <h2 style="margin-top:-3px ;">Αυτοκίνητα</h2>
