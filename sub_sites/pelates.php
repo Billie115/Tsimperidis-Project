@@ -24,7 +24,7 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Πελάτες</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -45,7 +45,7 @@ error_reporting(E_ALL);
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php filter('pelates'); ?>
+                <?php ShowTable('pelates') ?>
             </div>
 
             <div class="panel-content"></div>
