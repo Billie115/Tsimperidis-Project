@@ -10,10 +10,13 @@ error_reporting(E_ALL);
     include("temporarydb.php");
     include("functions.php");
       if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
-    $AT = trim($_POST["AT"]);
-    $onoma_pelati = trim($_POST["onoma_pelati"]);
-    $eponimo_pelati = trim($_POST["eponimo_pelati"]);
-        insert('pelates',[$AT, $onoma_pelati, $eponimo_pelati]);
+        $afm_pelath = trim($_POST["afm_pelath"]);
+        $onoma = trim($_POST["onoma"]);
+        $epwnumo = trim($_POST["epwnumo"]);
+        $email = trim($_POST["email"]);
+        $thlefwno1 = trim($_POST["thlefwno1"]);
+        $thlefwno2 = trim($_POST["thlefwno2"]);
+        insert('pelates',[$afm_pelath, $onoma, $epwnumo, $email, $thlefwno1, $thlefwno2]);
     }
 ?>
 
@@ -35,9 +38,12 @@ error_reporting(E_ALL);
                 <div style="border: 1px solid black; padding:10px; border-radius:10px; width:90%; justify-self:center">
             <h2>Προσθήκη Πελατών</h2>
         <form method="POST">
-        <input type="text" name='AT' placeholder="Αριθμός Ταυτότητας" required>
-        <input type="text" name='onoma_pelati' placeholder="Όνομα " required>
-        <input type="text" name='eponimo_pelati' placeholder="Επώνυμο" required>
+        <input type="text" name='afm_pelath' placeholder="Αριθμός Ταυτότητας" required>
+        <input type="text" name='onoma' placeholder="Όνομα " required>
+        <input type="text" name='epwnumo' placeholder="Επώνυμο" required>
+        <input type="text" name='email' placeholder="Email" required>
+        <input type="text" name='thlefwno1' placeholder="Τηλέφωνο 1" required>
+        <input type="text" name='thlefwno2' placeholder="Τηλέφωνο 2">
         
         <button type="submit" name="add">Προσθήκη</button>
             

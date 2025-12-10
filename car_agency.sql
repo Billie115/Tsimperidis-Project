@@ -84,7 +84,7 @@ CREATE TABLE syntirish(
     perigrafi TEXT NOT NULL,
     id_upallhlou CHAR(4),
     pinakida_kukloforias VARCHAR(8), --morfh: AAA-1234
-    katastash VARCHAR(20), --akurw8hke, oloklhrw8hke.
+    katastash ENUM('akurw8hke', 'oloklhrw8hke', 'ekremh'), --akurw8hke, oloklhrw8hke.
     FOREIGN KEY (id_upallhlou) REFERENCES upallhloi(id_upallhlou)
 );
 
