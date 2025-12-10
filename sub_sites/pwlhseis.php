@@ -22,12 +22,13 @@ error_reporting(E_ALL);
 </head>
 
 <body>
-    <button onclick="history.back()" style="left: 0;">Back</button>
+    <a href="dashboard.php"><button  style="left: 0;">Back</button></a>
+
     <div>
         <h1>Πωλήσεις</h1>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php filter('poliseis'); ?>
+                <?php showTable('poliseis'); ?>
             </div>
 
             <div class="panel-content"></div>
