@@ -39,6 +39,13 @@ body {
     background-blend-mode: overlay;
 }
 
+#montelo-div {
+    background-image: url('../Images/montela.jpg');
+    background-size: cover;
+    backdrop-filter: blur(10px);
+    background-blend-mode: overlay;
+}
+
 #autokinita-div {
     background-image: url('Images/sunset-cruise.jpg');
     background-size: cover;
