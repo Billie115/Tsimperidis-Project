@@ -7,7 +7,7 @@ CREATE TABLE etairia(
 
 CREATE TABLE thlefono_etairias(
     thlefono CHAR(10) PRIMARY KEY,
-    id_etairias CHAR(4) NOT NULL,
+    id_etairias CHAR(4) NOT NULL UNIQUE,
     FOREIGN KEY (id_etairias) REFERENCES etairia(id_etairias)
 );
 
@@ -111,8 +111,8 @@ CREATE TABLE login(
 CREATE VIEW Autokinhta_view AS 
 SELECT 
     VIN, 
-    etairia.onoma, 
-    montelo.onomasia, 
+    etairia.onoma as marka, 
+    montelo.onomasia as montelo, 
     aitos_kataskebhs, 
     kibhka, 
     ari8mos_kinhthra,
@@ -120,9 +120,19 @@ SELECT
     xhliometra, 
     tansmission, 
     xrwma, 
-endiktikh_timh,
+    endiktikh_timh,
     katastash
 FROM autokinhto
 JOIN montelo ON autokinhto.montelo = montelo.id_montelou
 JOIN etairia ON montelo.id_etairias = etairia.id_etairias;
 
+CREATE VIEW etairia_view AS 
+SELECT 
+    etairia.id_etairias, 
+    etairia.onoma, 
+    etairia.xwra,
+    thlefono_etairias.thlefono,
+    etairia.etairiko_afm
+FROM etairia
+JOIN thlefono_etairias 
+    ON etairia.id_etairias = thlefono_etairias.id_etairias;

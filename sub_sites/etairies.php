@@ -28,61 +28,55 @@ error_reporting(E_ALL);
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body >
+<body>
     <a href="dashboard.php"><button>Back</button></a>
 
     <div style="text-align: center;">
         <h1>Λίστα Εταιριών</h1>
         <div style="border: 1px solid black; padding:10px; border-radius:10px; width:90%; justify-self:center">
             <h2>Προσθήκη Εταιριών</h2>
-        <form method="POST">
-        <input type="text" name='kodikos_etairias' placeholder="Κωδικός εταιρίας" required>
-        <input type="text" name='onoma_etairias' placeholder="Όνομα εταιρίας" required>
-        <input type="text" name='xora_proeleusis' placeholder="Χόρα Προέλευσης" required>
-        <input type="text" name='tilefono_etairias' placeholder="Εταιρικό ΑΦΜ" required>
-        <button type="submit" name='add'>Προσθήκη</button>
-            
-         </form>
+            <form method="POST">
+                <input type="text" name='kodikos_etairias' placeholder="Κωδικός εταιρίας" required>
+                <input type="text" name='onoma_etairias' placeholder="Όνομα εταιρίας" required>
+                <input type="text" name='xora_proeleusis' placeholder="Χόρα Προέλευσης" required>
+                <input type="text" name='tilefono_etairias' placeholder="Τηλέφωνο" required>
+                <input type="text" name='etairiko_afm' placeholder="Εταιρικό ΑΦΜ" required>
+                <button type="submit" name='add'>Προσθήκη</button>
+            </form>
         </div>
-         <div id="filterPanel" class="filter-panel">
+        <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
                 <?php ShowTable('etairia_view') ?>
             </div>
+            <div class="panel-content"></div>
+            <h1>Delete</h1>
+            <form method="post">
+                <?php $cars = select("onoma", "etairia"); ?>
 
-            <div class="panel-content">
-            </div>
-        
-        <h1>Delete</h1>
-        <form method="post">
-            <?php $cars = select("onoma", "etairia"); ?>
+                <select id="cars" name="car">
+                    <?php foreach ($cars as $car): ?>
+                        <option value="<?= htmlspecialchars($car['onoma']) ?>">
+                            <?= htmlspecialchars($car['onoma']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit" name="delete">Delete</button>
+            </form>
 
-            <select id="cars" name="car">
-                <?php foreach ($cars as $car): ?>
-                    <option value="<?= htmlspecialchars($car['onoma']) ?>">
-                        <?= htmlspecialchars($car['onoma']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <button type="submit" name="delete">Delete</button>
-        </form>
-
-        <?php
+            <?php
                 if (isset($_POST['delete'])) {
-            $name = trim($_POST['car']); // the selected item
+                    $name = trim($_POST['car']); // the selected item
 
-            // safer delete using prepared statement
-            $stmt = $conn->prepare("DELETE FROM Etairia WHERE onoma = ?");
-            $stmt->bind_param("s", $name);
-            $stmt->execute();
-            $stmt->close();
+                    // safer delete using prepared statement
+                    $stmt = $conn->prepare("DELETE FROM Etairia WHERE onoma = ?");
+                    $stmt->bind_param("s", $name);
+                    $stmt->execute();
+                    $stmt->close();
 
-            echo "Deleted: " . htmlspecialchars($name);
-        }
-        ?>
-
-
-        </form>
+                    echo "Deleted: " . htmlspecialchars($name);
+                }
+            ?>
+        </div>
     </div>
 </body>
 
