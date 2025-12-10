@@ -107,3 +107,22 @@ CREATE TABLE login(
     password VARCHAR(30) NOT NULL,
     admin ENUM('True', 'False')
 );
+
+CREATE VIEW Autokinhta_view AS 
+SELECT 
+    VIN, 
+    etairia.onoma, 
+    montelo.onomasia, 
+    aitos_kataskebhs, 
+    kibhka, 
+    ari8mos_kinhthra,
+    eidos_mhxanhs, 
+    xhliometra, 
+    tansmission, 
+    xrwma, 
+endiktikh_timh,
+    katastash
+FROM autokinhto
+JOIN montelo ON autokinhto.montelo = montelo.id_montelou
+JOIN etairia ON montelo.id_etairias = etairia.id_etairias;
+

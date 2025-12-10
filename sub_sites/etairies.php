@@ -46,7 +46,7 @@ error_reporting(E_ALL);
         </div>
          <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php ShowTable('etairia') ?>
+                <?php ShowTable('etairia_view') ?>
             </div>
 
             <div class="panel-content">
