@@ -51,7 +51,33 @@ error_reporting(E_ALL);
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php ShowTable('pelates') ?>
+                <form method="post">
+
+                    <input type="text" name="afm_pelath" placeholder="ΑΦΜ πελατη" value="<?= htmlspecialchars($_POST['id_etairias'] ?? '') ?>">
+                    <input type="text" name="onoma" placeholder="Όνομα Πελατη" value="<?= htmlspecialchars($_POST['onoma'] ?? '') ?>">
+                    <input type="text" name="epwnumo" placeholder="Επωνημο Πελατη" value="<?= htmlspecialchars($_POST['xwra'] ?? '') ?>">
+
+                    <button type="submit">Αναζήτηση</button>
+                </form>
+
+                <?php
+                    // Read filters
+                    $afm = trim($_POST['afm_pelath'] ?? '');
+                    $name = trim($_POST['onoma'] ?? '');
+                    $surname = trim($_POST['epwnumo'] ?? '');
+
+                    // Build WHERE
+                    $whereParts = [];
+
+                    if ($afm !== '') $whereParts[] = "afm_pelath LIKE '$afm%'";
+                    if ($name !== '') $whereParts[] = "onoma LIKE '$name%'";
+                    if ($surname !== '') $whereParts[] = "epwnumo LIKE '$surname%'";
+
+                    $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
+
+                    // Show table
+                    ShowTable('pelates', $where);
+                ?>
             </div>
 
             <div class="panel-content"></div>

@@ -50,7 +50,26 @@ error_reporting(E_ALL);
         </div>
         <div id="filterPanel" class="filter-panel">
             <div class="panel-header">
-                <?php ShowTable('poliseis') ?>
+                <form method="POST">
+                    <p>apo: <input id="apo" name="apo" type="date"></p>
+                    <p>eos: <input id="eos" name="eos" type="date"></p>
+                    <button type="submit">Αναζητηση</button>
+                </form>
+
+                <?php 
+                global $conn;
+
+                $apo = trim($_POST["apo"] ?? "");
+                $eos = trim($_POST["eos"] ?? "");
+
+                if ($apo === "" || $eos === "") {
+                    $where = "";
+                } else {
+                    $where = "hm_ago BETWEEN '$apo' AND '$eos'";
+                }
+
+                showTable("poliseis", $where);
+                ?>
             </div>
 
             <div class="panel-content"></div>
