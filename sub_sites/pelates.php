@@ -53,9 +53,11 @@ error_reporting(E_ALL);
             <div class="panel-header">
                 <form method="post">
 
-                    <input type="text" name="afm_pelath" placeholder="ΑΦΜ πελατη" value="<?= htmlspecialchars($_POST['id_etairias'] ?? '') ?>">
-                    <input type="text" name="onoma" placeholder="Όνομα Πελατη" value="<?= htmlspecialchars($_POST['onoma'] ?? '') ?>">
-                    <input type="text" name="epwnumo" placeholder="Επωνημο Πελατη" value="<?= htmlspecialchars($_POST['xwra'] ?? '') ?>">
+                    <input type="text" name="afm_pelath" placeholder="ΑΦΜ πελατη" value="<?= htmlspecialchars($_POST['afm_pelath'] ?? '') ?>">
+                    <input type="text" name="onoma" placeholder="Όνομα Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
+                    <input type="text" name="epwnumo" placeholder="Επωνημο Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
+                    <input type="text" name="email" placeholder="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                    <input type="text" name="thlefwno" placeholder="τηλεγωνο" value="<?= htmlspecialchars($_POST['thlefwno1'] ?? '') ?>">
 
                     <button type="submit">Αναζήτηση</button>
                 </form>
@@ -65,6 +67,8 @@ error_reporting(E_ALL);
                     $afm = trim($_POST['afm_pelath'] ?? '');
                     $name = trim($_POST['onoma'] ?? '');
                     $surname = trim($_POST['epwnumo'] ?? '');
+                    $email = trim($_POST['email'] ?? '');
+                    $thlef = trim($_POST['thlefwno1'] ?? '');
 
                     // Build WHERE
                     $whereParts = [];
@@ -72,6 +76,8 @@ error_reporting(E_ALL);
                     if ($afm !== '') $whereParts[] = "afm_pelath LIKE '$afm%'";
                     if ($name !== '') $whereParts[] = "onoma LIKE '$name%'";
                     if ($surname !== '') $whereParts[] = "epwnumo LIKE '$surname%'";
+                    if ($email !== '') $whereParts[] = "email LIKE '$email%'";
+                    if ($thlef !== '') $whereParts[] = "thlefwno1 LIKE '$thlef%'";
 
                     $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
 
