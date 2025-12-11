@@ -46,11 +46,6 @@ error_reporting(E_ALL);
 <body >
     <a href="dashboard.php"><button>Back</button></a>
 <div class="form-wrapper">
-
-    <!-- Toggle Button -->
-    <button class="toggle-btn" onclick="toggleForm()">➕ Προσθήκη Αυτοκινήτων</button>
-
-    <!-- Hidden Form -->
     <div class="form-card" id="addCarForm">
         <h2>Προσθήκη Αυτοκινήτων</h2>
 
