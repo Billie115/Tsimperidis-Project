@@ -94,7 +94,7 @@
 
         // Display the filtered table
         if (!empty($rows)) {
-            echo '<table border="1" cellpadding="5" cellspacing="0" style="margin-top:20px;">';
+            echo '<table border="1" cellpadding="5" cellspacing="0" style="margin-top:20px;">'; //cs style !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             echo '<tr>';
             foreach ($columns_to_show as $col_name) {
                 echo '<th>' . htmlspecialchars($col_name) . '</th>';

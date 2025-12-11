@@ -39,3 +39,15 @@ footer {
     border: 1px solid black;
     border-radius: 10px;
 }
+table{
+    border: 1px solid black;
+}
+table th{
+    border: 1px solid black;
+}
+table td{
+    border: 1px solid black;
+}
+table tr:hover{
+
+}
