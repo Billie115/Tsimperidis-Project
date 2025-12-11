@@ -29,7 +29,7 @@ CREATE TABLE autokinhto(
     xhliometra DECIMAL(8,2), --null an einai neo, timh an einai metaxeirhsmeno
     xrwma VARCHAR(15) NOT NULL,
     endiktikh_timh DECIMAL(11,2) NOT NULL,
-    katastash ENUM('dia8eshmo', 'poulhmeno', 'me paragelia'), --dia8eshmo, poulhmeno, h kati allo den mou erxete kati allo.
+    katastash ENUM('dia8eshmo', 'poulhmeno'), --dia8eshmo, poulhmeno, h kati allo den mou erxete kati allo.
     FOREIGN KEY (montelo) REFERENCES montelo(id_montelou) 
 );
 
