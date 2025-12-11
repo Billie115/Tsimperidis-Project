@@ -32,63 +32,68 @@ error_reporting(E_ALL);
 
 <body>
     <a href="dashboard.php"><button>Back</button></a>
-    <div style="text-align: center;">
+<!--======================================================================================================-->
+<!------------------------------------------------- INSERT ------------------------------------------------->
+<!--======================================================================================================-->
+    <div class="center_block">
         
         <h1>Πελάτες</h1>
-                <div style="border: 1px solid black; padding:10px; border-radius:10px; width:90%; justify-self:center">
+        <div class="insert_block">
             <h2>Προσθήκη Πελατών</h2>
-        <form method="POST">
-        <input type="text" name='afm_pelath' placeholder="Αριθμός Ταυτότητας" required>
-        <input type="text" name='onoma' placeholder="Όνομα " required>
-        <input type="text" name='epwnumo' placeholder="Επώνυμο" required>
-        <input type="text" name='email' placeholder="Email" required>
-        <input type="text" name='thlefwno1' placeholder="Τηλέφωνο 1" required>
-        <input type="text" name='thlefwno2' placeholder="Τηλέφωνο 2">
-        
-        <button type="submit" name="add">Προσθήκη</button>
-            
-         </form>
+            <form method="POST">
+                <input type="text" name='afm_pelath' placeholder="Αριθμός Ταυτότητας" required>
+                <input type="text" name='onoma' placeholder="Όνομα " required>
+                <input type="text" name='epwnumo' placeholder="Επώνυμο" required>
+                <input type="text" name='email' placeholder="Email" required>
+                <input type="text" name='thlefwno1' placeholder="Τηλέφωνο 1" required>
+                <input type="text" name='thlefwno2' placeholder="Τηλέφωνο 2">
+                <button type="submit" name="add">Προσθήκη</button>
+            </form>
         </div>
-        <div id="filterPanel" class="filter-panel">
-            <div class="panel-header">
-                <form method="post">
-
-                    <input type="text" name="afm_pelath" placeholder="ΑΦΜ πελατη" value="<?= htmlspecialchars($_POST['afm_pelath'] ?? '') ?>">
-                    <input type="text" name="onoma" placeholder="Όνομα Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
-                    <input type="text" name="epwnumo" placeholder="Επωνημο Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
-                    <input type="text" name="email" placeholder="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
-                    <input type="text" name="thlefwno" placeholder="τηλεγωνο" value="<?= htmlspecialchars($_POST['thlefwno1'] ?? '') ?>">
-
-                    <button type="submit">Αναζήτηση</button>
-                </form>
-
-                <?php
-                    // Read filters
-                    $afm = trim($_POST['afm_pelath'] ?? '');
-                    $name = trim($_POST['onoma'] ?? '');
-                    $surname = trim($_POST['epwnumo'] ?? '');
-                    $email = trim($_POST['email'] ?? '');
-                    $thlef = trim($_POST['thlefwno1'] ?? '');
-
-                    // Build WHERE
-                    $whereParts = [];
-
-                    if ($afm !== '') $whereParts[] = "afm_pelath LIKE '$afm%'";
-                    if ($name !== '') $whereParts[] = "onoma LIKE '$name%'";
-                    if ($surname !== '') $whereParts[] = "epwnumo LIKE '$surname%'";
-                    if ($email !== '') $whereParts[] = "email LIKE '$email%'";
-                    if ($thlef !== '') $whereParts[] = "thlefwno1 LIKE '$thlef%'";
-
-                    $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
-
-                    // Show table
-                    ShowTable('pelates', $where);
-                ?>
-            </div>
-
-            <div class="panel-content"></div>
+<!--======================================================================================================-->
+<!------------------------------------------------- FILTER ------------------------------------------------->
+<!--======================================================================================================-->
+        <div class="filter_block">
+            <h2>Filters</h2>
+            <form method="post">
+                <input type="text" name="afm_pelath" placeholder="ΑΦΜ πελατη" value="<?= htmlspecialchars($_POST['afm_pelath'] ?? '') ?>">
+                <input type="text" name="onoma" placeholder="Όνομα Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
+                <input type="text" name="epwnumo" placeholder="Επωνημο Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
+                <input type="text" name="email" placeholder="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                <input type="text" name="thlefwno" placeholder="τηλεγωνο" value="<?= htmlspecialchars($_POST['thlefwno1'] ?? '') ?>">
+                <button type="submit">Αναζήτηση</button>
+            </form>
+        </div>
     </div>
+<!--=====================================================================================================-->
+<!------------------------------------------------- TABLE ------------------------------------------------->
+<!--=====================================================================================================-->
+    <div class="table_block">
+        <?php
+            // Read filters
+            $afm = trim($_POST['afm_pelath'] ?? '');
+            $name = trim($_POST['onoma'] ?? '');
+            $surname = trim($_POST['epwnumo'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $thlef = trim($_POST['thlefwno1'] ?? '');
 
+            // Build WHERE
+            $whereParts = [];
+
+            if ($afm !== '') $whereParts[] = "afm_pelath LIKE '$afm%'";
+            if ($name !== '') $whereParts[] = "onoma LIKE '$name%'";
+            if ($surname !== '') $whereParts[] = "epwnumo LIKE '$surname%'";
+            if ($email !== '') $whereParts[] = "email LIKE '$email%'";
+            if ($thlef !== '') $whereParts[] = "thlefwno1 LIKE '$thlef%'";
+
+            $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
+
+            // Show table
+            ShowTable('pelates', $where);
+        ?>
+    </div>
 </body>
-
+<footer>
+    Developed by ©KavalaCore 2025
+</footer>
 </html>
