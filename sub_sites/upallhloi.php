@@ -67,13 +67,22 @@ error_reporting(E_ALL);
                     <input type="text" name="epwnumo" placeholder="Επώνημο" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
                     <input type="text" name="thlefwno1" placeholder="Τηλέφωνο 1" value="<?= htmlspecialchars($_POST['thlefwno1'] ?? '') ?>">
                     <input type="text" name="thlefwno2" placeholder="Τηλέφωνο 2" value="<?= htmlspecialchars($_POST['thlefwno2'] ?? '') ?>">
-                    <input type="date" name="hm_proslhpshs" placeholder="ημ/νια Πρόσληψης" value="<?= htmlspecialchars($_POST['hm_proslhpshs'] ?? '') ?>">
-                    <select name="idikothta" value="<?= htmlspecialchars($_POST['idikothta'] ?? '') ?>">
-                        <option value="poliths">poliths</option>
-                        <option value="mhxanikos">mhxanikos</option>
-                        <option value="manager">manager</option>
-                        <option value="ka8arisths">ka8arisths</option>
-                    </select>
+                    <input type="date" name="hm_proslhpshs_apo" placeholder="ημ/νια Πρόσληψης" value="<?= htmlspecialchars($_POST['hm_proslhpshs'] ?? '') ?>">
+                    <input type="date" name="hm_proslhpshs_eos" placeholder="ημ/νια Πρόσληψης" value="<?= htmlspecialchars($_POST['hm_proslhpshs'] ?? '') ?>">
+                    <?php
+                    global $conn;
+                    // Read user selection (if the form was submitted)
+                    $selected_idikothta = $_POST['ιδηκοτητα'] ?? '';
+                    $selected_idikothta = mysqli_real_escape_string($conn, $selected_idikothta);
+                    // Now render the dropdown dynamically
+                    renderSelect(
+                        'ιδηκοτητα',
+                        '(SELECT DISTINCT idikothta FROM upallhloi) AS y',
+                        'idikothta',
+                        'ιδηκοτητα',
+                        $selected_idikothta,
+                        '--Ολες οι ιδηκοτητες--');
+                    ?>
                     <button type="submit">Αναζήτηση</button>
                 </form>
             </div>
@@ -83,28 +92,41 @@ error_reporting(E_ALL);
 <!--=====================================================================================================-->
             <div class="table_block">
                 <div class="panel-header">
-                    <?php 
+                    <?php
+                        global $conn;
+
                         // Read filters
                         $id_upallhlou = trim($_POST['id_upallhlou'] ?? '');
-                        $onoma = trim($_POST['onoma'] ?? '');
-                        $epwnumo = trim($_POST['epwnumo'] ?? '');
-                        $thlefwno1 = trim($_POST['thlefwno1'] ?? '');
-                        $thlefwno2 = trim($_POST['thlefwno2'] ?? '');
-                        $hm_proslhpshs = trim($_POST['hm_proslhpshs'] ?? '');
-                        $idikothta = trim($_POST['idikothta'] ?? '');
+                        $onoma        = trim($_POST['onoma'] ?? '');
+                        $epwnumo      = trim($_POST['epwnumo'] ?? '');
+                        $thlefwno1    = trim($_POST['thlefwno1'] ?? '');
+                        $thlefwno2    = trim($_POST['thlefwno2'] ?? '');
+
+                        $hm_proslhpshs_apo = trim($_POST['hm_proslhpshs_apo'] ?? '');
+                        $hm_proslhpshs_eos = trim($_POST['hm_proslhpshs_eos'] ?? '');
+
+                        $idikothta = trim($_POST['ιδηκοτητα'] ?? '');
+
                         // Build WHERE
                         $whereParts = [];
-                        if ($id_upallhlou !== '') $whereParts[] = "id_upallhlou LIKE '$id%'";
-                        if ($onoma !== '') $whereParts[] = "onoma LIKE '$onoma%'";
-                        if ($epwnumo !== '') $whereParts[] = "epwnumo LIKE '$epwnumo%'";
-                        if ($thlefwno1 !== '') $whereParts[] = "thlefwno1 LIKE '$thlefwno1%'";
-                        if ($thlefwno2 !== '') $whereParts[] = "thlefwno2 LIKE '$thlefwno2%'";
-                        if ($hm_proslhpshs !== '') $whereParts[] = "hm_proslhpshs LIKE '$hm_proslhpshs%'";
-                        if ($idikothta !== '') $whereParts[] = "idikothta LIKE '$idikothta%'";
+
+                        if ($id_upallhlou !== '') $whereParts[] = "id_upallhlou LIKE '{$id_upallhlou}%'";
+                        if ($onoma !== '')        $whereParts[] = "onoma LIKE '{$onoma}%'";
+                        if ($epwnumo !== '')      $whereParts[] = "epwnumo LIKE '{$epwnumo}%'";
+                        if ($thlefwno1 !== '')    $whereParts[] = "thlefwno1 LIKE '{$thlefwno1}%'";
+                        if ($thlefwno2 !== '')    $whereParts[] = "thlefwno2 LIKE '{$thlefwno2}%'";
+
+                        if ($hm_proslhpshs_apo !== '' && $hm_proslhpshs_eos !== '') {
+                            $whereParts[] = "hm_proslhpshs BETWEEN '{$hm_proslhpshs_apo}' AND '{$hm_proslhpshs_eos}'";
+                        }
+
+                        if ($idikothta !== '')    $whereParts[] = "idikothta LIKE '{$idikothta}%'";
 
                         $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
-                        
-                        ShowTable('upallhloi', $where) ?>
+
+                        ShowTable('upallhloi', $where);
+                    ?>
+
                 </div>
             </div>
     </body>
