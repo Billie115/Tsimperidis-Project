@@ -11,12 +11,23 @@ error_reporting(E_ALL);
     include("functions.php");
     if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
         $VIN = trim($_POST["VIN"]);
-        $xroma = trim($_POST["xroma"]);
-        $etos_agoras = trim($_POST["etos_agoras"]);
-        $modelo = trim($_POST["modelo"]);
-        $etos_kataskeuis = trim($_POST["etos_kataskeuis"]);
+        $xrwma = trim($_POST["xrwma"]);
+        
+        $montelo = trim($_POST["montelo"]);
+        $res= select('id_montelou','montelo',"onomasia='$montelo'");
+
+        $id_montelou= $res[0]['id_montelou'];
+        $ari8mos_kinhthra=trim($_POST["ari8mos_kinhthra"]);
+        $eidos_mhxanhs=trim($_POST["eidos_mhxanhs"]);
+
+        $aitos_kataskebhs = trim($_POST["aitos_kataskebhs"]);
+        $kibhka = trim($_POST["kibhka"]);
+        $tansmission = trim($_POST["tansmission"]);
+        $xhliometra = trim($_POST["xhliometra"]);
+
         $endictikh_timh =trim($_POST["endictikh_timh"]);
-        insert('Autokinhto',[$VIN, $xroma, $etos_agoras, $modelo, $etos_kataskeuis]);
+        $katastash =trim($_POST['katastash']);
+        insert('Autokinhto',[$VIN, $id_montelou, $ari8mos_kinhthra, $aitos_kataskebhs, $eidos_mhxanhs, $kibhka, $tansmission, $xhliometra, $xrwma, $endictikh_timh, $katastash]);
     }
 
 
@@ -36,18 +47,51 @@ error_reporting(E_ALL);
     <a href="dashboard.php"><button>Back</button></a>
 <div class="form-wrapper">
 
+    <!-- Toggle Button -->
+    <button class="toggle-btn" onclick="toggleForm()">➕ Προσθήκη Αυτοκινήτων</button>
+
     <!-- Hidden Form -->
-    <div style="text-align: center;">
-        <h1>Λίστα Εταιριών</h1>
-        <div style="border: 1px solid black; padding:10px; border-radius:10px; width:90%; justify-self:center">
-            <h2>Προσθήκη Εταιριών</h2>
+    <div class="form-card" id="addCarForm">
+        <h2>Προσθήκη Αυτοκινήτων</h2>
+
         <form method="POST">
-        <input type="text" name='kodikos_etairias' placeholder="Κωδικός εταιρίας" required>
-        <input type="text" name='onoma_etairias' placeholder="Όνομα εταιρίας" required>
-        <input type="text" name='xora_proeleusis' placeholder="Χόρα Προέλευσης" required>
-        <input type="text" name='tilefono_etairias' placeholder="Εταιρικό ΑΦΜ" required>
-        <button type="submit" name='add'>Προσθήκη</button>
+
+            <input type="text" name="VIN" placeholder="VIN" required>
+            <select id="cars" name="etairia">
+                <option value="Μάρκα" >--Μάρκα-- </option> 
+                <?php $cars = select("onoma", "etairia"); ?>
+                <?php foreach ($cars as $car): ?>
+                 <option value="<?= htmlspecialchars($car['onoma']) ?>">
+                     <?= htmlspecialchars($car['onoma']) ?> </option> 
+                     <?php endforeach; ?> 
+                    
+            </select> 
+            <select id="cars" name="montelo">
+                <option value="Μοντέλο" >--Μοντέλο-- </option> 
+                <?php $cars = select("onomasia", "montelo"); ?>
+                <?php foreach ($cars as $car): ?>
+                 <option value="<?= htmlspecialchars($car['onomasia']) ?>">
+                     <?= htmlspecialchars($car['onomasia']) ?> </option> 
+                     <?php endforeach; ?> 
+                    
+
+            </select> 
+            <input type="text" name=ari8mos_kinhthra placeholder="Αριθμός Κινητήρα" required>
+            <input type="text" name="xrwma" placeholder="Χρώμα" required>
             
+            <input type="number" name="aitos_kataskebhs" placeholder="Έτος κατασκευής" required>
+            <input type="text" name="eidos_mhxanhs" placeholder="Τύπος Καυσίμου" required>
+            <input type="text" name="tansmission" placeholder="Κυβότιο Ταχυτήτων" required>
+            <input type="text" name="kibhka" placeholder="Κηβικά" required>
+            <input type="number" name="xhliometra" placeholder="Χιλιόμετρα" required>
+            <input type="number" name="endictikh_timh" placeholder="Ενδεικτική τιμή" required>
+            <select name="katastash" id="">
+                <option >--Κατάσταση--</option>
+                <option value="dia8eshmo">Διαθέσιμο</option>
+                <option value="poulhmeno">Πουλημένο</option>
+            </select>
+            <button type="submit" name="add">Προσθήκη</button>
+
         </form>
     </div>
 
@@ -119,7 +163,7 @@ function toggleForm() {
                 }
 
                 // Show table with combined filters
-                ShowTable('autokinhta_view', $where);
+                ShowTable('Autokinhta_view');
                 ?>
 
                 <form method="post">
@@ -158,33 +202,33 @@ function toggleForm() {
 
                     <div class="ui-filter-wrapper">
 
-                        <input 
-                            type="text" 
-                            class="ui-input"
-                            name="timh1" 
-                            placeholder="Τιμή από" 
-                            value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>"
-                        >
+    <input 
+        type="text" 
+        class="ui-input"
+        name="timh1" 
+        placeholder="Τιμή από" 
+        value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>"
+    >
 
-                        <input 
-                            type="text" 
-                            class="ui-input"
-                            name="timh2" 
-                            placeholder="Τιμή έως" 
-                            value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>"
-                        >
+    <input 
+        type="text" 
+        class="ui-input"
+        name="timh2" 
+        placeholder="Τιμή έως" 
+        value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>"
+    >
 
-                        <button type="submit" class="ui-btn">Φιλτράρισμα</button>
+    <button type="submit" class="ui-btn">Φιλτράρισμα</button>
 
-                    </div>
+    </div>
 
 
                 </form>
 
 
 
-            </div>
-        </div>                    
-    </body>
+    </div>
+
+</body>
 
 </html>
