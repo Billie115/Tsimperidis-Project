@@ -1,6 +1,5 @@
 <?php
 include 'sub_sites/temporarydb.php';
-
 ob_start();
 session_start();
 $message = "";
