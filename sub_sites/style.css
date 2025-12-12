@@ -1,31 +1,59 @@
-.center_block{
+body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.center_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    width: 75vw;
+    margin-top: 8vh;
+    margin-left: 3vw;
     text-align: center;
     border: 2px solid blue;
-    border-radius:10px;
+    background: blue;
+    border-radius: 10px;
 }
-.insert_block{
-    border: 1px solid black;
-    padding:10px;
-    border-radius:10px;
-    width:90%;
-    justify-self:center
+
+.insert_block {
+    border: 1px solid purple;
+    background: purple;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+    justify-self: center
 }
-.filter_block{
+
+.filter_block {
     border: 1px solid green;
-    padding:10px;
-    border-radius:10px;
-    width:90%;
-    justify-self:center
+    background: green;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+    justify-self: center
 }
-.table_block{
+
+.table_block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75vw;
+    margin-top: 10px;
+    margin-left: 3vw;
     border: 2px solid red;
-    border-radius:10px;
+    background: red;
+    border-radius: 10px;
 }
-.delete_block{
+
+.delete_block {
     border: 2px solid yellow;
     background: yellow;
-    border-radius:10px;
+    border-radius: 10px;
 }
+
 footer {
     justify-self: center;
     padding: 10px;
@@ -35,15 +63,17 @@ footer {
     border: 1px solid black;
     border-radius: 10px;
 }
-table{
-    border: 1px solid black;
-}
-table th{
-    border: 1px solid black;
-}
-table td{
-    border: 1px solid black;
-}
-table tr:hover{
 
+table {
+    border: 1px solid black;
 }
+
+table th {
+    border: 1px solid black;
+}
+
+table td {
+    border: 1px solid black;
+}
+
+table tr:hover {}
