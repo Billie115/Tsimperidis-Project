@@ -69,6 +69,7 @@ error_reporting(E_ALL);
                     <input type="text" name="thlefwno2" placeholder="Τηλέφωνο 2" value="<?= htmlspecialchars($_POST['thlefwno2'] ?? '') ?>">
                     <input type="date" name="hm_proslhpshs" placeholder="ημ/νια Πρόσληψης" value="<?= htmlspecialchars($_POST['hm_proslhpshs'] ?? '') ?>">
                     <select name="idikothta" value="<?= htmlspecialchars($_POST['idikothta'] ?? '') ?>">
+                        <option value="oloi">--Όλλοι υπάλληλοι--</option>
                         <option value="poliths">poliths</option>
                         <option value="mhxanikos">mhxanikos</option>
                         <option value="manager">manager</option>
@@ -103,8 +104,12 @@ error_reporting(E_ALL);
                         if ($idikothta !== '') $whereParts[] = "idikothta LIKE '$idikothta%'";
 
                         $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
-                        
-                        ShowTable('upallhloi', $where) ?>
+                        if($idikothta==='oloi'){
+                            showTable('upallhloi');
+                        }else{
+                        ShowTable('upallhloi', $where); 
+                        }
+                        ?>
                 </div>
             </div>
     </body>
