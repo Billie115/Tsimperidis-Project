@@ -47,6 +47,37 @@
         }
     }
 
+    function updateRow(string $table, array $data, string $where) {
+        global $conn;
+            // $data => [ "column" => "value", ... ] to be updated
+        // $where => string, e.g. "id = 5"
+
+        if (empty($data)) return false;
+
+        // Build SET clause
+        $setParts = [];
+        $values   = [];
+
+        foreach ($data as $col => $val) {
+            $setParts[] = "`$col` = ?";
+            $values[]   = $val;
+        }
+
+        $setClause = implode(", ", $setParts);
+
+        // Prepare final SQL
+        $sql = "UPDATE `$table` SET $setClause WHERE $where";
+
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) return false;
+
+        // Bind parameters dynamically
+        $types = str_repeat("s", count($values)); // all strings (fine for mysqli)
+        $stmt->bind_param($types, ...$values);
+
+        return $stmt->execute();
+}
+
 
     function delete($tables, $where){
         global $conn;
