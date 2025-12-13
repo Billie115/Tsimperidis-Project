@@ -1,39 +1,41 @@
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 ?>
 
 <?php
-    include("temporarydb.php");
-    include("functions.php");
-    if($_SERVER['REQUEST_METHOD']=="POST"&& isset($_POST['add'])){
-        $id_etairias = trim($_POST["id_etairias"]);
-        $onoma = trim($_POST["onoma"]);
-        $xwra = trim($_POST["xwra"]);
-        $thlefono = trim($_POST["thlefono"]);
-        $etairiko_afm = trim($_POST["etairiko_afm"]);
-        insert('etairia',[$id_etairias, $onoma, $xwra, $etairiko_afm]);
-        insert('thlefono_etairias',[$thlefono, $id_etairias]);
-    }
+include("../sidebar.php");
+
+include("temporarydb.php");
+include("functions.php");
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
+    $id_etairias = trim($_POST["id_etairias"]);
+    $onoma = trim($_POST["onoma"]);
+    $xwra = trim($_POST["xwra"]);
+    $thlefono = trim($_POST["thlefono"]);
+    $etairiko_afm = trim($_POST["etairiko_afm"]);
+    insert('etairia', [$id_etairias, $onoma, $xwra, $etairiko_afm]);
+    insert('thlefono_etairias', [$thlefono, $id_etairias]);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Etairies</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
 
-    <body>
-        <a href="dashboard.php"><button>Back</button></a>
-<!--======================================================================================================-->
-<!------------------------------------------------- INSERT ------------------------------------------------->
-<!--======================================================================================================-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etairies</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- <a href=" dashboard.php"><button>Back</button></a> -->
+    <div>
+        <!--======================================================================================================-->
+        <!------------------------------------------------- INSERT ------------------------------------------------->
+        <!--======================================================================================================-->
         <div class="center_block">
             <h1>Λίστα Εταιριών</h1>
             <div class="insert_block">
@@ -47,9 +49,9 @@ error_reporting(E_ALL);
                     <button type="submit" name='add'>Προσθήκη</button>
                 </form>
             </div>
-<!--======================================================================================================-->
-<!------------------------------------------------- FILTER ------------------------------------------------->
-<!--======================================================================================================-->
+            <!--======================================================================================================-->
+            <!------------------------------------------------- FILTER ------------------------------------------------->
+            <!--======================================================================================================-->
             <div class="filter_block">
                 <h2>Filters</h2>
                 <form method="post">
@@ -61,32 +63,34 @@ error_reporting(E_ALL);
                 </form>
             </div>
         </div>
-<!--=====================================================================================================-->
-<!------------------------------------------------- TABLE ------------------------------------------------->
-<!--=====================================================================================================-->
+        <!--=====================================================================================================-->
+        <!------------------------------------------------- TABLE ------------------------------------------------->
+        <!--=====================================================================================================-->
         <div class="table_block">
             <?php
-                // Read filters
-                $id = trim($_POST['id_etairias'] ?? '');
-                $name = trim($_POST['onoma'] ?? '');
-                $country = trim($_POST['xwra'] ?? '');
-                $afm = trim($_POST['etairiko_afm'] ?? '');
+            // Read filters
+            $id = trim($_POST['id_etairias'] ?? '');
+            $name = trim($_POST['onoma'] ?? '');
+            $country = trim($_POST['xwra'] ?? '');
+            $afm = trim($_POST['etairiko_afm'] ?? '');
 
-                // Build WHERE
-                $whereParts = [];
+            // Build WHERE
+            $whereParts = [];
 
-                if ($id !== '') $whereParts[] = "id_etairias LIKE '$id%'";
-                if ($name !== '') $whereParts[] = "onoma LIKE '$name%'";
-                if ($country !== '') $whereParts[] = "xwra LIKE '$country%'";
-                if ($afm !== '') $whereParts[] = "etairiko_afm LIKE '$afm%'";
+            if ($id !== '') $whereParts[] = "id_etairias LIKE '$id%'";
+            if ($name !== '') $whereParts[] = "onoma LIKE '$name%'";
+            if ($country !== '') $whereParts[] = "xwra LIKE '$country%'";
+            if ($afm !== '') $whereParts[] = "etairiko_afm LIKE '$afm%'";
 
-                $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
-                // Show table
-                ShowTable('etairia', $where);
+            $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
+            // Show table
+            ShowTable('etairia', $where);
             ?>
         </div>
-    </body>
-    <footer>
-        Developed by ©KavalaCore 2025
-    </footer>
+    </div>
+</body>
+<footer>
+    Developed by ©KavalaCore 2025
+</footer>
+
 </html>

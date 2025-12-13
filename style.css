@@ -1,6 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-
+    display: flex;
 }
 
 #heading-div {
@@ -33,6 +33,7 @@ body {
 
 /*---Menu div Cards-*/
 #etairia-div {
+
     background-image: url('Images/aiteria.jpg');
     background-size: cover;
     backdrop-filter: blur(10px);
