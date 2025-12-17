@@ -54,7 +54,6 @@ while ($row = $result->fetch_assoc()) {
             <div class="chart-container">
                 <canvas id="carsLineChart"></canvas>
             </div>
-
             <script>
                 const ctx = document.getElementById('carsLineChart').getContext('2d');
 
