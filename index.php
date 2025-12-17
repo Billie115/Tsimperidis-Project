@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST["password"]);
 
     if (!empty($username) && !empty($password)) {
-        $sql = "SELECT * FROM Login WHERE username=? AND password=?";
+        $sql = "SELECT * FROM login WHERE username=? AND password=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>
            alert('Welcome back User !');
            </script>";
-            header("Location: sub_sites/dashboard.php");
+            header("Location: sub_sites/home.php");
             exit();
         } else {
             $message = "Invalid username or password";

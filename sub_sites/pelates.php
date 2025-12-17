@@ -7,17 +7,18 @@ error_reporting(E_ALL);
 ?>
 
 <?php
-    include("temporarydb.php");
-    include("functions.php");
-      if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
-        $afm_pelath = trim($_POST["afm_pelath"]);
-        $onoma = trim($_POST["onoma"]);
-        $epwnumo = trim($_POST["epwnumo"]);
-        $email = trim($_POST["email"]);
-        $thlefwno1 = trim($_POST["thlefwno1"]);
-        $thlefwno2 = trim($_POST["thlefwno2"]);
-        insert('pelates',[$afm_pelath, $onoma, $epwnumo, $email, $thlefwno1, $thlefwno2]);
-    }
+include("../sidebar.php");
+include("temporarydb.php");
+include("functions.php");
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
+    $afm_pelath = trim($_POST["afm_pelath"]);
+    $onoma = trim($_POST["onoma"]);
+    $epwnumo = trim($_POST["epwnumo"]);
+    $email = trim($_POST["email"]);
+    $thlefwno1 = trim($_POST["thlefwno1"]);
+    $thlefwno2 = trim($_POST["thlefwno2"]);
+    insert('pelates', [$afm_pelath, $onoma, $epwnumo, $email, $thlefwno1, $thlefwno2]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,45 +32,45 @@ error_reporting(E_ALL);
 </head>
 
 <body>
-    <a href="dashboard.php"><button>Back</button></a>
-<!--======================================================================================================-->
-<!------------------------------------------------- INSERT ------------------------------------------------->
-<!--======================================================================================================-->
-    <div class="center_block">
-        
-        <h1>Πελάτες</h1>
-        <div class="insert_block">
-            <h2>Προσθήκη Πελατών</h2>
-            <form method="POST">
-                <input type="text" name='afm_pelath' placeholder="Αριθμός Ταυτότητας" required>
-                <input type="text" name='onoma' placeholder="Όνομα " required>
-                <input type="text" name='epwnumo' placeholder="Επώνυμο" required>
-                <input type="text" name='email' placeholder="Email" required>
-                <input type="text" name='thlefwno1' placeholder="Τηλέφωνο 1" required>
-                <input type="text" name='thlefwno2' placeholder="Τηλέφωνο 2">
-                <button type="submit" name="add">Προσθήκη</button>
-            </form>
+    <!--======================================================================================================-->
+    <!------------------------------------------------- INSERT ------------------------------------------------->
+    <!--======================================================================================================-->
+    <div>
+        <div class="center_block">
+
+            <h1>Πελάτες</h1>
+            <div class="insert_block">
+                <h2>Προσθήκη Πελατών</h2>
+                <form method="POST">
+                    <input type="text" name='afm_pelath' placeholder="Αριθμός Ταυτότητας" required>
+                    <input type="text" name='onoma' placeholder="Όνομα " required>
+                    <input type="text" name='epwnumo' placeholder="Επώνυμο" required>
+                    <input type="text" name='email' placeholder="Email" required>
+                    <input type="text" name='thlefwno1' placeholder="Τηλέφωνο 1" required>
+                    <input type="text" name='thlefwno2' placeholder="Τηλέφωνο 2">
+                    <button type="submit" name="add">Προσθήκη</button>
+                </form>
+            </div>
+            <!--======================================================================================================-->
+            <!------------------------------------------------- FILTER ------------------------------------------------->
+            <!--======================================================================================================-->
+            <div class="filter_block">
+                <h2>Filters</h2>
+                <form method="post">
+                    <input type="text" name="afm_pelath" placeholder="ΑΦΜ πελατη" value="<?= htmlspecialchars($_POST['afm_pelath'] ?? '') ?>">
+                    <input type="text" name="onoma" placeholder="Όνομα Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
+                    <input type="text" name="epwnumo" placeholder="Επωνημο Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
+                    <input type="text" name="email" placeholder="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                    <input type="text" name="thlefwno" placeholder="τηλεγωνο" value="<?= htmlspecialchars($_POST['thlefwno1'] ?? '') ?>">
+                    <button type="submit">Αναζήτηση</button>
+                </form>
+            </div>
         </div>
-<!--======================================================================================================-->
-<!------------------------------------------------- FILTER ------------------------------------------------->
-<!--======================================================================================================-->
-        <div class="filter_block">
-            <h2>Filters</h2>
-            <form method="post">
-                <input type="text" name="afm_pelath" placeholder="ΑΦΜ πελατη" value="<?= htmlspecialchars($_POST['afm_pelath'] ?? '') ?>">
-                <input type="text" name="onoma" placeholder="Όνομα Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
-                <input type="text" name="epwnumo" placeholder="Επωνημο Πελατη" value="<?= htmlspecialchars($_POST['epwnumo'] ?? '') ?>">
-                <input type="text" name="email" placeholder="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
-                <input type="text" name="thlefwno" placeholder="τηλεγωνο" value="<?= htmlspecialchars($_POST['thlefwno1'] ?? '') ?>">
-                <button type="submit">Αναζήτηση</button>
-            </form>
-        </div>
-    </div>
-<!--=====================================================================================================-->
-<!------------------------------------------------- TABLE ------------------------------------------------->
-<!--=====================================================================================================-->
-    <div class="table_block">
-        <?php
+        <!--=====================================================================================================-->
+        <!------------------------------------------------- TABLE ------------------------------------------------->
+        <!--=====================================================================================================-->
+        <div class="table_block">
+            <?php
             // Read filters
             $afm = trim($_POST['afm_pelath'] ?? '');
             $name = trim($_POST['onoma'] ?? '');
@@ -90,10 +91,10 @@ error_reporting(E_ALL);
 
             // Show table
             ShowTable('pelates', $where);
-        ?>
+            ?>
+        </div>
     </div>
 </body>
-<footer>
-    Developed by ©KavalaCore 2025
-</footer>
+
+
 </html>
