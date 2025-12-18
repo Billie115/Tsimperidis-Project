@@ -60,111 +60,77 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                 </form>
             </div>
 
-            <!--======================================================================================================-->
-            <!------------------------------------------------- FILTER ------------------------------------------------->
-            <!--======================================================================================================-->
-            <div class="filter_block">
-                <form method="post">
-
-                    <!-- Car brands -->
-                    <?php renderSelect(
-                        'car',
-                        'etairia',
-                        'onoma',
-                        'Μάρκα',
-                        $selected_car,
-                        '-- Όλες οι μάρκες --',
-                        true
-                    );
-                    ?>
-                    <br><br>
-                    <!-- Models -->
-                    <?php if (!empty($selected_car)): ?>
-                        <?php
-                        $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
-                        $ids = array_map(fn($b) => $b['id_etairias'], $brandIds);
-                        $idsList = "'" . implode("','", $ids) . "'";
-                        ?>
-                        <?php renderSelect(
-                            'model',
-                            'montelo',
-                            'onomasia',
-                            'Μοντέλο',
-                            $selected_model,
-                            '-- Όλα τα μοντέλα --',
-                            true,
-                            "id_etairias IN ($idsList)"
-                        );
-                        ?>
-                    <?php endif; ?>
-
-                    <div class="ui-filter-wrapper">
-                        <button type="submit" class="ui-btn">Φιλτράρισμα</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!--=====================================================================================================-->
-        <!------------------------------------------------- TABLE ------------------------------------------------->
-        <!--=====================================================================================================-->
-        <div class="table_block">
+<!--======================================================================================================-->
+<!------------------------------------------------- FILTER ------------------------------------------------->
+<!--======================================================================================================-->
+        <div class="filter_block">
             <div class="panel-header">
                 <?php
                 global $conn;
 
-                // Read filters (single selection)
-                $selected_car = $_POST['car'] ?? '';
-                $selected_model = $_POST['model'] ?? '';
+                $onomasia    = $_POST['onomasia'] ?? '';
+                $id_montelou = $_POST['id_montelou'] ?? '';
+                $id_etairias = $_POST['id_etairias'] ?? '';
 
-                // Read prices from POST
-                $price1 = $_POST['timh1'] ?? '';
-                $price2 = $_POST['timh2'] ?? '';
 
                 // Escape inputs
-                $selected_car = mysqli_real_escape_string($conn, $selected_car);
-                $selected_model = mysqli_real_escape_string($conn, $selected_model);
-                $price1 = mysqli_real_escape_string($conn, $price1);
-                $price2 = mysqli_real_escape_string($conn, $price2);
+                $onomasia = mysqli_real_escape_string($conn, $onomasia);
+                $id_montelou = mysqli_real_escape_string($conn, $id_montelou);
+                $id_etairias = mysqli_real_escape_string($conn, $id_etairias);
 
                 // Build WHERE clause for brand/model
                 $whereParts = [];
 
-                if ($selected_car !== '') {
-                    $whereParts[] = "
-                        montelo IN (
-                            SELECT montelo.id_montelou
-                            FROM montelo
-                            INNER JOIN etairia ON montelo.id_etairias = etairia.id_etairias
-                            WHERE etairia.onoma = '$selected_car'
-                            " . ($selected_model !== '' ? "AND montelo.onomasia = '$selected_model'" : "") . "
-                        )
-                    ";
+                if ($onomasia !== '') {
+                    $whereParts[] = "onomasia = '$onomasia'";
                 }
 
-                // Build WHERE clause for price
-                if ($price1 !== '' && $price2 !== '') {
-                    $whereParts[] = "endiktikh_timh BETWEEN $price1 AND $price2";
-                } elseif ($price1 !== '') {
-                    $whereParts[] = "endiktikh_timh >= $price1";
-                } elseif ($price2 !== '') {
-                    $whereParts[] = "endiktikh_timh <= $price2";
+                if ($id_montelou !== '') {
+                    $whereParts[] = "id_montelou LIKE '$id_montelou%'";
                 }
 
-                // Combine all WHERE conditions
-                $where = !empty($whereParts) ? implode(' AND ', $whereParts) : '1';
+                if ($id_etairias !== '') {
+                    $whereParts[] = "id_etairias LIKE '$id_etairias%'";
+                }
 
-                // Load models if a brand was selected
-                $models = [];
-                if ($selected_car !== '') {
-                    $models = select(
-                        "onomasia",
-                        "montelo INNER JOIN etairia ON montelo.id_etairias = etairia.id_etairias",
-                        "etairia.onoma = '$selected_car'"
+                $where = $whereParts ? implode(' AND ', $whereParts) : '1';
+
+                ?>
+                <form method="post">
+                    <!-- Car brands -->
+                    <?php renderSelect(
+                        'onomasia',
+                        'montelo',
+                        'onomasia',
+                        'Montelo',
+                        $onomasia,
+                        '-- Όλα τα μοντελα --',
+                        true
                     );
-                }
-
+                    ?>
+                    <input
+                        type="text"
+                        class="ui-input"
+                        name="id_montelou"
+                        placeholder="id μοντελου"
+                        value="<?= htmlspecialchars($_POST['id_montelou'] ?? '') ?>">
+                    <input
+                        type="text"
+                        class="ui-input"
+                        name="id_etairias"
+                        placeholder="Eταιρια"
+                        value="<?= htmlspecialchars($_POST['id_etairias'] ?? '') ?>">
+                    <button type="submit" class="ui-btn">Φιλτράρισμα</button>
+                </form>
+            </div>
+        </div>
+<!--=====================================================================================================-->
+<!------------------------------------------------- TABLE ------------------------------------------------->
+<!--=====================================================================================================-->
+            <div class="table_block">
+                <?php
                 // Show table with combined filters
-                ShowTable('Montelo');
+                ShowTable('montelo', $where);
                 ?>
 
             </div>
