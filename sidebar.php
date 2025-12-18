@@ -152,46 +152,46 @@
             </div>
         </div>
         <aside id="sidebar">
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/home.php'">
+            <div class="sidebar_items" onclick="location.href='home.php'">
                 <i class="material-icons">home</i>
                 <span>Αρχική Σελίδα</span>
             </div>
 
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/etairies.php'">
+            <div class="sidebar_items" onclick="location.href='etairies.php'">
                 <i class="material-icons">business_center</i>
                 <span>Εταιρίες</span>
             </div>
 
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/autokinhta.php'">
+            <div class="sidebar_items" onclick="location.href='autokinhta.php'">
                 <i class="material-icons">directions_car</i>
                 <span>Αυτοκίνητα</span>
             </div>
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/montela.php'">
+            <div class="sidebar_items" onclick="location.href='montela.php'">
                 <i class="material-icons">directions_car</i>
                 <span>Μοντέλα</span>
             </div>
 
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/pelates.php'">
+            <div class="sidebar_items" onclick="location.href='pelates.php'">
                 <i class="material-icons">people</i>
                 <span>Πελάτες</span>
             </div>
 
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/upallhloi.php'">
+            <div class="sidebar_items" onclick="location.href='upallhloi.php'">
                 <i class="material-icons">badge</i>
                 <span>Υπάλληλοι</span>
             </div>
 
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/pwlhseis.php'">
+            <div class="sidebar_items" onclick="location.href='pwlhseis.php'">
                 <i class="material-icons">handshake</i>
                 <span>Πωλήσεις</span>
             </div>
 
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/sunthrish.php'">
+            <div class="sidebar_items" onclick="location.href='sunthrish.php'">
                 <i class="material-icons">car_repair</i>
                 <span>Συντήρηση</span>
             </div>
 
-            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/index.php'" style="margin-top: 10px;">
+            <div class="sidebar_items" onclick="location.href='../index.php'" style="margin-top: 10px;">
                 <i class="material-icons">logout</i>
                 <span>Έξοδος</span>
             </div>
