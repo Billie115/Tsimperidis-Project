@@ -80,7 +80,7 @@ while ($row = $result->fetch_assoc()) {
                 });
             </script>
         </div>
-        <div style="display: flex; flex-direction:column; border:1px solid black; padding:10px; height: 250px; border-radius:10px;">
+        <div style="display: flex; flex-direction:column; border:1px solid black; padding:10px; height: 250px; border-radius:10px; margin-left:2vw">
             <h3>Αυτοκίνητα</h3>
 
             <div class="autokinhta_num-div">
@@ -124,7 +124,7 @@ while ($row = $result->fetch_assoc()) {
 
             </div>
         </div><br>
-        <div style="border: 1px solid black; border-radius:10px; padding:10px;display:flex;height:150px; margin-left:10px; overflow-x:auto; overflow-y: hidden;">
+        <div style="border: 1px solid black; border-radius:10px; padding:10px;display:flex;height:150px; margin-left:1vw; overflow-x:auto; overflow-y: hidden;">
             <h3>Συντήρηση</h3>
             <div class="sunthrish_num-div">
                 <div>
