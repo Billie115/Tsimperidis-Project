@@ -1,13 +1,23 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Document</title>
+</head>
 <style>
     #body {
-        margin-top: 3vh;
-        text-align: center;
-        max-width: 300px;
-        height: auto;
+        backdrop-filter: blur(10px);
+        margin-top: 10px;
         border: 1px solid black;
         border-radius: 5px;
+        width: 300px;
+        height: 650px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
     }
 
     #sidebar {
@@ -16,120 +26,178 @@
         text-align: center;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
-    }
-
-    #logo {
-        margin-top: 5px;
-        margin-left: 15%;
-        display: flex;
-        justify-self: center;
-        align-self: center;
-        border-radius: 10px;
-        box-shadow: 2px 3px 2px 2px gray;
-    }
-
-    #expand-btn {
-        border-radius: 10px;
-        padding: 8px;
-        margin-left: 8px;
-        background-color: white;
+        gap: 7px;
     }
 
     .sidebar_items {
-        text-decoration: none;
-        margin-top: 10px;
         border: 1px solid black;
-        width: 80%;
+        width: 200px;
         text-decoration: none;
-        /* margin-left: 10px; */
+        margin-left: 10px;
+        margin-right: 10px;
         padding: 10px;
         border-radius: 5px;
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5px;
+        align-self: center;
+        gap: 7px;
+        cursor: pointer;
     }
 
-    .sidebar_items a {
+    .sidebar_items span {
+        color: black;
         font-size: 20px;
-        color: #143349;
+        text-align: center;
     }
 
     .sidebar_items:hover {
-        cursor: pointer;
-        transition: all 0.8ms;
         transform: scale(0.9);
+        transition: all;
+    }
+
+    #logo {
+        width: 200px;
+        height: 150px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+        border-radius: 8px;
+        margin: 6px;
+        margin-left: 20px;
+
+    }
+
+    #expand-btn {
+        position: absolute;
+        top: 20px;
+        right: -20px;
+        z-index: 1000;
+        cursor: pointer;
+        padding: 10px;
+        border: 1px solid black;
+    }
+
+    @media (max-width:760px) {
+        #logo {
+            display: none;
+        }
+
+        .sidebar_items {
+            display: none;
+        }
+
+        #body {
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            width: 30px;
+            height: 30px;
+            border: none;
+        }
+
+        #expand-btn {
+            position: fixed;
+            top: 2px;
+            left: 2px;
+            z-index: 1000;
+            cursor: pointer;
+        }
     }
 </style>
 
 <script>
+    let sidebarOpen = true; // track state
+
     function sidebar_expand() {
-        const sidebar_elements = document.getElementsByClassName('sidebar_items');
-        const sidebar = document.getElementById('body');
-        const logo= document.getElementById("logo")
-        if (sidebar.style.width === "300px") {
-            sidebar.style.width = "100px";
-            logo.style.width="80px";
-            for (let item of sidebar_elements) {
-                item.style.visibility = 'hidden';
+        const sidebar_body = document.getElementById('body');
+        const sidebar_items = document.getElementsByClassName('sidebar_items');
+        const exp_btn = document.getElementById('expand-btn');
+        const logo = document.getElementById('logo');
+
+        if (sidebarOpen) {
+            // COLLAPSE
+            sidebar_body.style.width = '30px';
+            sidebar_body.style.height = '30px';
+            sidebar_body.style.border = 'none';
+            logo.style.display = 'none';
+
+            for (let item of sidebar_items) {
+                item.style.display = 'none';
             }
+
+            sidebarOpen = false;
         } else {
-            sidebar.style.width = "300px";
-            for (let item of sidebar_elements) {
-                item.style.visibility = "visible";
+            // EXPAND
+            sidebar_body.style.width = 'fit-content';
+            sidebar_body.style.height = '650px';
+            sidebar_body.style.border = '1px solid black';
+            logo.style.display = 'block';
+
+            for (let item of sidebar_items) {
+                item.style.display = 'flex';
             }
+
+            sidebarOpen = true;
         }
     }
 </script>
 
-<div id="body">
-    <div style="display: flex; align-items: center;">
-        <img src="./Images/Totoya_Cars.png" width="200px" id="logo">
-        <!-- <h3 style="font-size:20px; margin-left:2px;">Totoya Cars</h3> -->
-        <button id="expand-btn" onclick="sidebar_expand()">
-            <i class="material-icons">menu_open</i></button>
+
+<body>
+    <div id="body">
+        <div style="display: flex; align-items: center;">
+            <img src="../Images/Totoya_Cars.png" id="logo">
+            <div id="expand-btn" onclick="sidebar_expand()">
+                <i class="material-icons">menu_open</i>
+            </div>
+        </div>
+        <aside id="sidebar">
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/home.php'">
+                <i class="material-icons">home</i>
+                <span>Αρχική Σελίδα</span>
+            </div>
+
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/etairies.php'">
+                <i class="material-icons">business_center</i>
+                <span>Εταιρίες</span>
+            </div>
+
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/autokinhta.php'">
+                <i class="material-icons">directions_car</i>
+                <span>Αυτοκίνητα</span>
+            </div>
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/montela.php'">
+                <i class="material-icons">directions_car</i>
+                <span>Μοντέλα</span>
+            </div>
+
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/pelates.php'">
+                <i class="material-icons">people</i>
+                <span>Πελάτες</span>
+            </div>
+
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/upallhloi.php'">
+                <i class="material-icons">badge</i>
+                <span>Υπάλληλοι</span>
+            </div>
+
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/pwlhseis.php'">
+                <i class="material-icons">handshake</i>
+                <span>Πωλήσεις</span>
+            </div>
+
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/sub_sites/sunthrish.php'">
+                <i class="material-icons">car_repair</i>
+                <span>Συντήρηση</span>
+            </div>
+
+            <div class="sidebar_items" onclick="location.href='/Tsimperidis-Project/index.php'" style="margin-top: 10px;">
+                <i class="material-icons">logout</i>
+                <span>Έξοδος</span>
+            </div>
+
+        </aside>
     </div>
-    <aside id="sidebar">
-        <div class="sidebar_items">
-            <i class="material-icons">home</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Αρχική Σελίδα</a>
-        </div>
+</body>
 
-        <div class="sidebar_items">
-            <i class="material-icons">business_center</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Εταιρίες</a>
-        </div>
-
-        <div class="sidebar_items">
-            <i class="material-icons">directions_car</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Αυτοκίνητα</a>
-        </div>
-
-        <div class="sidebar_items">
-            <i class="material-icons">people</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Πελάτες</a>
-        </div>
-
-        <div class="sidebar_items">
-            <i class="material-icons">badge</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Υπάλληλοι</a>
-        </div>
-
-        <div class="sidebar_items">
-            <i class="material-icons">handshake</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Πωλήσεις</a>
-        </div>
-
-        <div class="sidebar_items">
-            <i class="material-icons">car_repair</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Συντήριση</a>
-        </div>
-        <br><br>
-        <div class="sidebar_items" style="margin-bottom: 10px;">
-            <i class="material-icons">logout</i>
-            <a href="/sub_sites/dashboard.php" style="text-decoration: none; ">Έξοδος</a>
-        </div>
-    </aside>
-</div>
+</html>

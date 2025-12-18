@@ -7,18 +7,20 @@ error_reporting(E_ALL);
 ?>
 
 <?php
-    include("temporarydb.php");
-    include("functions.php");
-    if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
-        $id_montelou=trim($_POST["id_montelou"]);
-        $etairia = trim($_POST["etairia"]);
-        $res= select('id_etairias','etairia',"onoma='$etairia'");
 
-        $id_etairias= $res[0]['id_etairias'];
-        $onomasia=trim($_POST["onomasia"]);
-       
-        insert('Montelo',[$id_montelou, $onomasia, $id_etairias]);
-    }
+include("../sidebar.php");
+include("temporarydb.php");
+include("functions.php");
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
+    $id_montelou = trim($_POST["id_montelou"]);
+    $etairia = trim($_POST["etairia"]);
+    $res = select('id_etairias', 'etairia', "onoma='$etairia'");
+
+    $id_etairias = $res[0]['id_etairias'];
+    $onomasia = trim($_POST["onomasia"]);
+
+    insert('Montelo', [$id_montelou, $onomasia, $id_etairias]);
+}
 
 
 ?>
@@ -26,18 +28,18 @@ error_reporting(E_ALL);
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Μοντέλα</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μοντέλα</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <body >
-        <a href="dashboard.php"><button>Back</button></a>
-<!--======================================================================================================--> 
-<!------------------------------------------------- INSERT ------------------------------------------------->
-<!--======================================================================================================-->
+<body>
+    <!--======================================================================================================-->
+    <!------------------------------------------------- INSERT ------------------------------------------------->
+    <!--======================================================================================================-->
+    <div>
         <div class="center_block">
             <h1>Μοντέλα</h1>
             <div class="insert_block">
@@ -45,25 +47,69 @@ error_reporting(E_ALL);
                 <form method="POST">
                     <input type="text" name="id_montelou" placeholder="Κωδικός μοντέλου" required>
                     <select id="cars" name="etairia">
-                        <option value="Μοντέλο" >--Εταιρία-- </option> 
+                        <option value="Μοντέλο">--Εταιρία-- </option>
                         <?php $cars = select("onoma", "etairia"); ?>
                         <?php foreach ($cars as $car): ?>
-                        <option value="<?= htmlspecialchars($car['onoma']) ?>">
-                            <?= htmlspecialchars($car['onoma']) ?> 
-                        </option> 
-                        <?php endforeach; ?> 
-                    </select> 
+                            <option value="<?= htmlspecialchars($car['onoma']) ?>">
+                                <?= htmlspecialchars($car['onoma']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                     <input type="text" name="onomasia" placeholder="Ονομασία Μοντέλου" required>
                     <button type="submit" name="add">Προσθήκη</button>
                 </form>
             </div>
+
+            <!--======================================================================================================-->
+            <!------------------------------------------------- FILTER ------------------------------------------------->
+            <!--======================================================================================================-->
+            <div class="filter_block">
+                <form method="post">
+
+                    <!-- Car brands -->
+                    <?php renderSelect(
+                        'car',
+                        'etairia',
+                        'onoma',
+                        'Μάρκα',
+                        $selected_car,
+                        '-- Όλες οι μάρκες --',
+                        true
+                    );
+                    ?>
+                    <br><br>
+                    <!-- Models -->
+                    <?php if (!empty($selected_car)): ?>
+                        <?php
+                        $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
+                        $ids = array_map(fn($b) => $b['id_etairias'], $brandIds);
+                        $idsList = "'" . implode("','", $ids) . "'";
+                        ?>
+                        <?php renderSelect(
+                            'model',
+                            'montelo',
+                            'onomasia',
+                            'Μοντέλο',
+                            $selected_model,
+                            '-- Όλα τα μοντέλα --',
+                            true,
+                            "id_etairias IN ($idsList)"
+                        );
+                        ?>
+                    <?php endif; ?>
+
+                    <div class="ui-filter-wrapper">
+                        <button type="submit" class="ui-btn">Φιλτράρισμα</button>
+                    </div>
+                </form>
+            </div>
         </div>
-<!--=====================================================================================================-->
-<!------------------------------------------------- TABLE ------------------------------------------------->
-<!--=====================================================================================================-->
+        <!--=====================================================================================================-->
+        <!------------------------------------------------- TABLE ------------------------------------------------->
+        <!--=====================================================================================================-->
         <div class="table_block">
             <div class="panel-header">
-                <?php 
+                <?php
                 global $conn;
 
                 // Read filters (single selection)
@@ -120,48 +166,10 @@ error_reporting(E_ALL);
                 // Show table with combined filters
                 ShowTable('Montelo');
                 ?>
-<!--======================================================================================================-->
-<!------------------------------------------------- FILTER ------------------------------------------------->
-<!--======================================================================================================-->
-                <div>
-                    <form method="post">
 
-                        <!-- Car brands -->
-                        <?php renderSelect(
-                            'car', 
-                            'etairia', 
-                            'onoma', 
-                            'Μάρκα', 
-                            $selected_car, 
-                            '-- Όλες οι μάρκες --', 
-                            true); 
-                        ?>
-                        <br><br>
-                        <!-- Models -->
-                        <?php if (!empty($selected_car)): ?>
-                            <?php 
-                                $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
-                                $ids = array_map(fn($b) => $b['id_etairias'], $brandIds);
-                                $idsList = "'" . implode("','", $ids) . "'";
-                            ?>
-                            <?php renderSelect(
-                                'model',
-                                'montelo',
-                                'onomasia',
-                                'Μοντέλο',
-                                $selected_model,
-                                '-- Όλα τα μοντέλα --',
-                                true,
-                                "id_etairias IN ($idsList)"); 
-                            ?>
-                        <?php endif; ?>
-
-                        <div class="ui-filter-wrapper">
-                            <button type="submit" class="ui-btn">Φιλτράρισμα</button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

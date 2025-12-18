@@ -7,45 +7,48 @@ error_reporting(E_ALL);
 ?>
 
 <?php
-    include("temporarydb.php");
-    include("functions.php");
-    if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
-        $VIN = trim($_POST["VIN"]);
-        $xrwma = trim($_POST["xrwma"]);
-        
-        $montelo = trim($_POST["montelo"]);
-        $res= select('id_montelou','montelo',"onomasia='$montelo'");
+include("../sidebar.php");
+include("temporarydb.php");
+include("functions.php");
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
+    $VIN = trim($_POST["VIN"]);
+    $xrwma = trim($_POST["xrwma"]);
 
-        $id_montelou= $res[0]['id_montelou'];
-        $ari8mos_kinhthra=trim($_POST["ari8mos_kinhthra"]);
-        $eidos_mhxanhs=trim($_POST["eidos_mhxanhs"]);
+    $montelo = trim($_POST["montelo"]);
+    $res = select('id_montelou', 'montelo', "onomasia='$montelo'");
 
-        $aitos_kataskebhs = trim($_POST["aitos_kataskebhs"]);
-        $kibhka = trim($_POST["kibhka"]);
-        $tansmission = trim($_POST["tansmission"]);
-        $xhliometra = trim($_POST["xhliometra"]);
+    $id_montelou = $res[0]['id_montelou'];
+    $ari8mos_kinhthra = trim($_POST["ari8mos_kinhthra"]);
+    $eidos_mhxanhs = trim($_POST["eidos_mhxanhs"]);
 
-        $endictikh_timh =trim($_POST["endictikh_timh"]);
-        $katastash =trim($_POST['katastash']);
-        insert('Autokinhto',[$VIN, $id_montelou, $ari8mos_kinhthra, $aitos_kataskebhs, $eidos_mhxanhs, $kibhka, $tansmission, $xhliometra, $xrwma, $endictikh_timh, $katastash]);
-    }
+    $aitos_kataskebhs = trim($_POST["aitos_kataskebhs"]);
+    $kibhka = trim($_POST["kibhka"]);
+    $tansmission = trim($_POST["tansmission"]);
+    $xhliometra = trim($_POST["xhliometra"]);
+
+    $endictikh_timh = trim($_POST["endictikh_timh"]);
+    $katastash = trim($_POST['katastash']);
+    insert('Autokinhto', [$VIN, $id_montelou, $ari8mos_kinhthra, $aitos_kataskebhs, $eidos_mhxanhs, $kibhka, $tansmission, $xhliometra, $xrwma, $endictikh_timh, $katastash]);
+}
 
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Αυτοκίνητα</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <a href="dashboard.php"><button>Back</button></a>
-<!--======================================================================================================-->
-<!------------------------------------------------- INSERT ------------------------------------------------->
-<!--======================================================================================================-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αυτοκίνητα</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--======================================================================================================-->
+    <!------------------------------------------------- INSERT ------------------------------------------------->
+    <!--======================================================================================================-->
+    <div>
         <div class="center_block">
             <h1>Αυτοκίνητα</h1>
             <div class="insert_block">
@@ -53,21 +56,21 @@ error_reporting(E_ALL);
                 <form method="POST">
                     <input type="text" name="VIN" placeholder="VIN" required>
                     <select id="cars" name="etairia">
-                        <option value="Μάρκα" >--Μάρκα-- </option> 
+                        <option value="Μάρκα">--Μάρκα-- </option>
                         <?php $cars = select("onoma", "etairia"); ?>
                         <?php foreach ($cars as $car): ?>
-                        <option value="<?= htmlspecialchars($car['onoma']) ?>">
-                        <?= htmlspecialchars($car['onoma']) ?> </option> 
-                        <?php endforeach; ?>    
-                    </select> 
+                            <option value="<?= htmlspecialchars($car['onoma']) ?>">
+                                <?= htmlspecialchars($car['onoma']) ?> </option>
+                        <?php endforeach; ?>
+                    </select>
                     <select id="cars" name="montelo">
-                        <option value="Μοντέλο" >--Μοντέλο-- </option> 
+                        <option value="Μοντέλο">--Μοντέλο-- </option>
                         <?php $cars = select("onomasia", "montelo"); ?>
                         <?php foreach ($cars as $car): ?>
-                        <option value="<?= htmlspecialchars($car['onomasia']) ?>">
-                        <?= htmlspecialchars($car['onomasia']) ?> </option> 
+                            <option value="<?= htmlspecialchars($car['onomasia']) ?>">
+                                <?= htmlspecialchars($car['onomasia']) ?> </option>
                         <?php endforeach; ?>
-                    </select> 
+                    </select>
                     <input type="text" name=ari8mos_kinhthra placeholder="Αριθμός Κινητήρα" required>
                     <input type="text" name="xrwma" placeholder="Χρώμα" required>
                     <input type="number" name="aitos_kataskebhs" placeholder="Έτος κατασκευής" required>
@@ -77,19 +80,69 @@ error_reporting(E_ALL);
                     <input type="number" name="xhliometra" placeholder="Χιλιόμετρα" required>
                     <input type="number" name="endictikh_timh" placeholder="Ενδεικτική τιμή" required>
                     <select name="katastash" id="">
-                        <option >--Κατάσταση--</option>
+                        <option>--Κατάσταση--</option>
                         <option value="dia8eshmo">Διαθέσιμο</option>
                         <option value="poulhmeno">Πουλημένο</option>
                     </select>
                     <button type="submit" name="add">Προσθήκη</button>
                 </form>
             </div>
+            <!--======================================================================================================-->
+            <!------------------------------------------------- FILTER ------------------------------------------------->
+            <!--======================================================================================================-->
+            <div class="filter_block">
+                <form method="post">
+                    <!-- Car brands -->
+                    <?php renderSelect(
+                        'car',
+                        'etairia',
+                        'onoma',
+                        'Μάρκα',
+                        $selected_car,
+                        '-- Όλες οι μάρκες --',
+                        true
+                    );
+                    ?>
+                    <br><br>
+                    <!-- Models -->
+                    <?php if (!empty($selected_car)): ?>
+                        <?php
+                        $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
+                        $ids = array_map(fn($b) => $b['id_etairias'], $brandIds);
+                        $idsList = "'" . implode("','", $ids) . "'";
+                        ?>
+                        <?php renderSelect(
+                            'model',
+                            'montelo',
+                            'onomasia',
+                            'Μοντέλο',
+                            $selected_model,
+                            '-- Όλα τα μοντέλα --',
+                            true,
+                            "id_etairias IN ($idsList)"
+                        ); ?>
+                    <?php endif; ?>
+                    <input
+                        type="text"
+                        class="ui-input"
+                        name="timh1"
+                        placeholder="Τιμή από"
+                        value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>">
+                    <input
+                        type="text"
+                        class="ui-input"
+                        name="timh2"
+                        placeholder="Τιμή έως"
+                        value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>">
+                    <button type="submit" class="ui-btn">Φιλτράρισμα</button>
+                </form>
+            </div>
         </div>
-<!--=====================================================================================================-->
-<!------------------------------------------------- TABLE ------------------------------------------------->
-<!--=====================================================================================================-->
+        <!--=====================================================================================================-->
+        <!------------------------------------------------- TABLE ------------------------------------------------->
+        <!--=====================================================================================================-->
         <div class="table_block">
-            <?php 
+            <?php
             global $conn;
 
             // Read filters (single selection)
@@ -146,59 +199,8 @@ error_reporting(E_ALL);
             ShowTable('Autokinhta_view');
             ?>
         </div>
-<!--======================================================================================================-->
-<!------------------------------------------------- FILTER ------------------------------------------------->
-<!--======================================================================================================-->
-        <div class="center_block">
-            <div class="filter_block">
-                <form method="post">
-                    <!-- Car brands -->
-                    <?php renderSelect(
-                        'car', 
-                        'etairia', 
-                        'onoma', 
-                        'Μάρκα', 
-                        $selected_car, 
-                        '-- Όλες οι μάρκες --', 
-                        true);
-                    ?>
-                    <br><br>
-                    <!-- Models -->
-                    <?php if (!empty($selected_car)): ?>
-                        <?php 
-                            $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
-                            $ids = array_map(fn($b) => $b['id_etairias'], $brandIds);
-                            $idsList = "'" . implode("','", $ids) . "'";
-                        ?>
-                        <?php renderSelect(
-                            'model',
-                            'montelo',
-                            'onomasia',
-                            'Μοντέλο',
-                            $selected_model,
-                            '-- Όλα τα μοντέλα --',
-                            true,
-                            "id_etairias IN ($idsList)"
-                        ); ?>
-                    <?php endif; ?>
-                            <input 
-                                type="text" 
-                                class="ui-input"
-                                name="timh1" 
-                                placeholder="Τιμή από" 
-                                value="<?= htmlspecialchars($_POST['timh1'] ?? '') ?>"
-                            >
-                            <input 
-                                type="text" 
-                                class="ui-input"
-                                name="timh2" 
-                                placeholder="Τιμή έως" 
-                                value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>"
-                            >
-                            <button type="submit" class="ui-btn">Φιλτράρισμα</button>
-                </form>
-            </div>
-        </div>            
-    </body>
+
+    </div>
+</body>
 
 </html>

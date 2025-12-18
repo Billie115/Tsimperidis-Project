@@ -1,6 +1,19 @@
+html,
 body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+
+    margin-top: 20px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    background-image: url("../Images/Dashboard_bg_img.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .center_block {
@@ -10,17 +23,18 @@ body {
     align-items: center;
     gap: 10px;
     width: 75vw;
-    margin-top: 8vh;
+    margin-top: 0.5vh;
     margin-left: 3vw;
+    margin-right: 3vw;
     text-align: center;
-    border: 2px solid blue;
-    background: blue;
+    border: 0.2px solid black;
+    backdrop-filter: blur(10px);
     border-radius: 10px;
 }
 
 .insert_block {
-    border: 1px solid purple;
-    background: purple;
+    border: 0.2px solid black;
+    backdrop-filter: blur(10px);
     padding: 10px;
     border-radius: 10px;
     width: 90%;
@@ -28,8 +42,8 @@ body {
 }
 
 .filter_block {
-    border: 1px solid green;
-    background: green;
+    border: 0.2px solid black;
+    backdrop-filter: blur(10px);
     padding: 10px;
     border-radius: 10px;
     width: 90%;
@@ -39,19 +53,27 @@ body {
 .table_block {
     display: flex;
     align-items: center;
-    justify-content: center;
     width: 75vw;
     margin-top: 10px;
     margin-left: 3vw;
-    border: 2px solid red;
-    background: red;
+    margin-right: 3vw;
+    border: 0.2px solid black;
+    backdrop-filter: blur(10px);
     border-radius: 10px;
+    overflow: auto;
 }
 
 .delete_block {
-    border: 2px solid yellow;
-    background: yellow;
+    border: 0.2px solid black;
+    backdrop-filter: blur(10px);
     border-radius: 10px;
+}
+
+#sales_chart-div,
+.autokinhta_num-div,
+.sunthrish_num-div,
+.center_block {
+    backdrop-filter: blur(10px);
 }
 
 footer {
@@ -76,4 +98,67 @@ table td {
     border: 1px solid black;
 }
 
-table tr:hover {}
+#sales_chart-div {
+    width: max-content;
+    height: max-content;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.autokinhta_num-div {
+    width: 300px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.sunthrish_num-div {
+    min-width: 20vw;
+    height: 150px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        flex-wrap: wrap;
+        z-index: 1;
+    }
+
+    .center_block,
+    .table_block {
+        width: 90vw;
+        margin-left: 5vw;
+    }
+
+    #sales_chart-div,
+    .autokinhta_num-div {
+        margin-left: 5vw;
+    }
+
+
+    #sales_chart-div,
+    .autokinhta_num-div,
+    .sunthrish_num-div {
+        overflow-x: auto;
+    }
+
+}

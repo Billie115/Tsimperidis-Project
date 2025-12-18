@@ -7,34 +7,35 @@ error_reporting(E_ALL);
 ?>
 
 <?php
-    include("temporarydb.php");
-    include("functions.php");
-      if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
-        $id_suntirishs = trim($_POST["id_suntirishs"]);
-        $hm_rant = trim($_POST["hm_rant"]);
-        $perigrafi = trim($_POST["perigrafi"]);
-        $id_upallhlou = trim($_POST["id_upallhlou"]);
-        $pinakida_kukloforias = trim($_POST["pinakida_kukloforias"]);
-        $katastash = trim($_POST["katastash"]);
-        insert('syntirish',[$id_suntirishs, $hm_rant, $perigrafi, $id_upallhlou, $pinakida_kukloforias, $katastash]);
-    }
+include("../sidebar.php");
+include("temporarydb.php");
+include("functions.php");
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
+    $id_suntirishs = trim($_POST["id_suntirishs"]);
+    $hm_rant = trim($_POST["hm_rant"]);
+    $perigrafi = trim($_POST["perigrafi"]);
+    $id_upallhlou = trim($_POST["id_upallhlou"]);
+    $pinakida_kukloforias = trim($_POST["pinakida_kukloforias"]);
+    $katastash = trim($_POST["katastash"]);
+    insert('syntirish', [$id_suntirishs, $hm_rant, $perigrafi, $id_upallhlou, $pinakida_kukloforias, $katastash]);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Συντιρίσεις</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Συντιρίσεις</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <body>
-        <a href="dashboard.php"><button>Back</button></a>
-<!--======================================================================================================-->
-<!------------------------------------------------- INSERT ------------------------------------------------->
-<!--======================================================================================================-->
+<body>
+    <!--======================================================================================================-->
+    <!------------------------------------------------- INSERT ------------------------------------------------->
+    <!--======================================================================================================-->
+    <div>
         <div class="center_block">
             <h1>Συντιρίσεις</h1>
             <div class="insert_block">
@@ -53,15 +54,15 @@ error_reporting(E_ALL);
                     <button type="submit" name="add">Προσθήκη</button>
                 </form>
             </div>
-<!--======================================================================================================-->
-<!------------------------------------------------- FILTER ------------------------------------------------->
-<!--======================================================================================================-->
+            <!--======================================================================================================-->
+            <!------------------------------------------------- FILTER ------------------------------------------------->
+            <!--======================================================================================================-->
             <div class="filter_block">
                 <h2>Filters</h2>
                 <form method="POST">
                     <input type="text" name="suntirishs" placeholder="id_suntirishs">
-                    <p>apo: <input id="apo" name="apo_rand" type="date"></p>
-                    <p>eos: <input id="eos" name="eos_rand" type="date"></p>
+                    <p>Από: <input id="apo" name="apo_rand" type="date"></p>
+                    <p>Εώς: <input id="eos" name="eos_rand" type="date"></p>
                     <input type="text" name="id_upallhlou" placeholder="id_upallhlou">
                     <input type="text" name="pinakida_kukloforias" placeholder="pinakida_kukloforias">
                     <?php
@@ -76,15 +77,16 @@ error_reporting(E_ALL);
                         'katastash',
                         'Κατασταση',
                         $selected_katastasi,
-                        '--Ολες οι κατηγοριες--');
+                        '--Ολες οι κατηγοριες--'
+                    );
                     ?>
                     <button type="submit">Αναζητηση</button>
                 </form>
             </div>
         </div>
-<!--=====================================================================================================-->
-<!------------------------------------------------- TABLE ------------------------------------------------->
-<!--=====================================================================================================-->
+        <!--=====================================================================================================-->
+        <!------------------------------------------------- TABLE ------------------------------------------------->
+        <!--=====================================================================================================-->
         <div class="table_block">
             <?php
             global $conn;
@@ -133,9 +135,9 @@ error_reporting(E_ALL);
             showTable('syntirish', $where);
             ?>
         </div>
-<!--======================================================================================================-->
-<!------------------------------------------------- DELETE ------------------------------------------------->
-<!--======================================================================================================-->
+        <!--======================================================================================================-->
+        <!------------------------------------------------- DELETE ------------------------------------------------->
+        <!--======================================================================================================-->
         <div class="center_block">
             <div class="delete_block">
                 <h1>Delete</h1>
@@ -143,25 +145,27 @@ error_reporting(E_ALL);
                     <?php $cars = select("id_suntirishs", "syntirish"); ?>
                     <select id="cars" name="car">
                         <?php foreach ($cars as $car): ?>
-                        <option value="<?= htmlspecialchars($car['id_suntirishs']) ?>">
-                            <?= htmlspecialchars($car['id_suntirishs']) ?>
-                        </option>
+                            <option value="<?= htmlspecialchars($car['id_suntirishs']) ?>">
+                                <?= htmlspecialchars($car['id_suntirishs']) ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                     <button type="submit" name="delete" onclick="setTimeout(() => location.reload(true), 50);">Delete</button>
                 </form>
                 <?php
-                    if (isset($_POST['delete'])) {
-                        $name = trim($_POST['car']); // the selected item
-                        // safer delete using prepared statement
-                        $stmt = $conn->prepare("DELETE FROM syntirish WHERE id_suntirishs = ?");
-                        $stmt->bind_param("s", $name);
-                        $stmt->execute();
-                        $stmt->close();
-                        echo "Deleted: " . htmlspecialchars($name);
-                    }
+                if (isset($_POST['delete'])) {
+                    $name = trim($_POST['car']); // the selected item
+                    // safer delete using prepared statement
+                    $stmt = $conn->prepare("DELETE FROM syntirish WHERE id_suntirishs = ?");
+                    $stmt->bind_param("s", $name);
+                    $stmt->execute();
+                    $stmt->close();
+                    echo "Deleted: " . htmlspecialchars($name);
+                }
                 ?>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

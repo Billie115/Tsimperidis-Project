@@ -7,35 +7,36 @@ error_reporting(E_ALL);
 ?>
 
 <?php
-    include("temporarydb.php");
-    include("functions.php");
-      if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add'])){
-        $id_upallhlou = trim($_POST["id_upallhlou"]);
-        $onoma = trim($_POST["onoma"]);
-        $epwnumo = trim($_POST["epwnumo"]);
-        $thlefwno1 = trim($_POST["thlefwno1"]);
-        $thlefwno2 = trim($_POST["thlefwno2"]);
-        $hm_proslhpshs = trim($_POST["hm_proslhpshs"]);
-        $idikothta = trim($_POST["idikothta"]);
-        insert('upallhloi',[$id_upallhlou, $onoma, $epwnumo, $thlefwno1, $thlefwno2, $hm_proslhpshs, $idikothta]);
-    }
+include("../sidebar.php");
+include("temporarydb.php");
+include("functions.php");
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
+    $id_upallhlou = trim($_POST["id_upallhlou"]);
+    $onoma = trim($_POST["onoma"]);
+    $epwnumo = trim($_POST["epwnumo"]);
+    $thlefwno1 = trim($_POST["thlefwno1"]);
+    $thlefwno2 = trim($_POST["thlefwno2"]);
+    $hm_proslhpshs = trim($_POST["hm_proslhpshs"]);
+    $idikothta = trim($_POST["idikothta"]);
+    insert('upallhloi', [$id_upallhlou, $onoma, $epwnumo, $thlefwno1, $thlefwno2, $hm_proslhpshs, $idikothta]);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Υπάλληλοι</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Υπάλληλοι</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <body>
-        <a href="dashboard.php"><button>Back</button></a>
-<!--======================================================================================================-->
-<!------------------------------------------------- INSERT ------------------------------------------------->
-<!--======================================================================================================-->
+<body>
+    <!--======================================================================================================-->
+    <!------------------------------------------------- INSERT ------------------------------------------------->
+    <!--======================================================================================================-->
+    <div>
         <div class="center_block">
             <h1>Υπάλληλοι</h1>
             <div class="insert_block">
@@ -56,9 +57,9 @@ error_reporting(E_ALL);
                     <button type="submit" name="add">Προσθήκη</button>
                 </form>
             </div>
-<!--======================================================================================================-->
-<!------------------------------------------------- FILTER ------------------------------------------------->
-<!--======================================================================================================-->
+            <!--======================================================================================================-->
+            <!------------------------------------------------- FILTER ------------------------------------------------->
+            <!--======================================================================================================-->
             <div class="filter_block">
                 <h2>Filters</h2>
                 <form method="post">
@@ -79,38 +80,40 @@ error_reporting(E_ALL);
                 </form>
             </div>
         </div>
-<!--=====================================================================================================-->
-<!------------------------------------------------- TABLE ------------------------------------------------->
-<!--=====================================================================================================-->
-            <div class="table_block">
-                <div class="panel-header">
-                    <?php 
-                        // Read filters
-                        $id_upallhlou = trim($_POST['id_upallhlou'] ?? '');
-                        $onoma = trim($_POST['onoma'] ?? '');
-                        $epwnumo = trim($_POST['epwnumo'] ?? '');
-                        $thlefwno1 = trim($_POST['thlefwno1'] ?? '');
-                        $thlefwno2 = trim($_POST['thlefwno2'] ?? '');
-                        $hm_proslhpshs = trim($_POST['hm_proslhpshs'] ?? '');
-                        $idikothta = trim($_POST['idikothta'] ?? '');
-                        // Build WHERE
-                        $whereParts = [];
-                        if ($id_upallhlou !== '') $whereParts[] = "id_upallhlou LIKE '$id%'";
-                        if ($onoma !== '') $whereParts[] = "onoma LIKE '$onoma%'";
-                        if ($epwnumo !== '') $whereParts[] = "epwnumo LIKE '$epwnumo%'";
-                        if ($thlefwno1 !== '') $whereParts[] = "thlefwno1 LIKE '$thlefwno1%'";
-                        if ($thlefwno2 !== '') $whereParts[] = "thlefwno2 LIKE '$thlefwno2%'";
-                        if ($hm_proslhpshs !== '') $whereParts[] = "hm_proslhpshs LIKE '$hm_proslhpshs%'";
-                        if ($idikothta !== '') $whereParts[] = "idikothta LIKE '$idikothta%'";
+        <!--=====================================================================================================-->
+        <!------------------------------------------------- TABLE ------------------------------------------------->
+        <!--=====================================================================================================-->
+        <div class="table_block">
+            <div class="panel-header">
+                <?php
+                // Read filters
+                $id_upallhlou = trim($_POST['id_upallhlou'] ?? '');
+                $onoma = trim($_POST['onoma'] ?? '');
+                $epwnumo = trim($_POST['epwnumo'] ?? '');
+                $thlefwno1 = trim($_POST['thlefwno1'] ?? '');
+                $thlefwno2 = trim($_POST['thlefwno2'] ?? '');
+                $hm_proslhpshs = trim($_POST['hm_proslhpshs'] ?? '');
+                $idikothta = trim($_POST['idikothta'] ?? '');
+                // Build WHERE
+                $whereParts = [];
+                if ($id_upallhlou !== '') $whereParts[] = "id_upallhlou LIKE '$id%'";
+                if ($onoma !== '') $whereParts[] = "onoma LIKE '$onoma%'";
+                if ($epwnumo !== '') $whereParts[] = "epwnumo LIKE '$epwnumo%'";
+                if ($thlefwno1 !== '') $whereParts[] = "thlefwno1 LIKE '$thlefwno1%'";
+                if ($thlefwno2 !== '') $whereParts[] = "thlefwno2 LIKE '$thlefwno2%'";
+                if ($hm_proslhpshs !== '') $whereParts[] = "hm_proslhpshs LIKE '$hm_proslhpshs%'";
+                if ($idikothta !== '') $whereParts[] = "idikothta LIKE '$idikothta%'";
 
-                        $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
-                        if($idikothta==='oloi'){
-                            showTable('upallhloi');
-                        }else{
-                        ShowTable('upallhloi', $where); 
-                        }
-                        ?>
-                </div>
+                $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";
+                if ($idikothta === 'oloi') {
+                    showTable('upallhloi');
+                } else {
+                    ShowTable('upallhloi', $where);
+                }
+                ?>
             </div>
-    </body>
+        </div>
+    </div>
+</body>
+
 </html>
