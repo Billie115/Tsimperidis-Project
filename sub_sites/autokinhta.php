@@ -87,19 +87,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                     <button type="submit" name="add">Προσθήκη</button>
                 </form>
             </div>
-<!--======================================================================================================-->
-<!------------------------------------------------- FILTER ------------------------------------------------->
-<!--======================================================================================================-->
-        <div class="table_block">
+            <!--======================================================================================================-->
+            <!------------------------------------------------- FILTER ------------------------------------------------->
+            <!--======================================================================================================-->
             <?php
             global $conn;
 
             // Read filters (single selection)
             $selected_car = $_POST['car'] ?? '';
             $selected_model = $_POST['model'] ?? '';
-            $selected_katastash = $_POST['katastash'] ??'';
-            $selected_xrwma = $_POST['xrwma'] ??'';
-            $selected_eidos_mhxanhs = $_POST['eidos_mhxanhs'] ??'';
+            $selected_katastash = $_POST['katastash'] ?? '';
+            $selected_xrwma = $_POST['xrwma'] ?? '';
+            $selected_eidos_mhxanhs = $_POST['eidos_mhxanhs'] ?? '';
 
             // Read prices from POST
             $price1 = $_POST['timh1'] ?? '';
@@ -132,15 +131,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                 $whereParts[] = "montelo = '$selected_model'";
             }
 
-            if ($selected_katastash !==  ''){
+            if ($selected_katastash !==  '') {
                 $whereParts[] = "katastash = '$selected_katastash'";
             }
 
-            if ($selected_eidos_mhxanhs !==  ''){
+            if ($selected_eidos_mhxanhs !==  '') {
                 $whereParts[] = "eidos_mhxanhs = '$selected_eidos_mhxanhs'";
             }
 
-            if ($selected_xrwma !==  ''){
+            if ($selected_xrwma !==  '') {
                 $whereParts[] = "xrwma = '$selected_xrwma'";
             }
 
@@ -162,21 +161,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
 
             $where = $whereParts ? implode(' AND ', $whereParts) : '1';
             ?>
-            
+
             <div class="filter_block">
-                <form method="post">
+                <h2>Filters</h2>
+                <form method="post" style="display: flex; flex-wrap:wrap;">
                     <!-- Car brands -->
                     <?php renderSelect(
                         'car',
                         'etairia',
                         'onoma',
-                        'Μάρκα',
+                        '',
                         $selected_car,
-                        '-- Όλες οι μάρκες --',
+                        '-- Μάρκα --',
                         true
                     );
                     ?>
-                    <br>
+
                     <!-- Models -->
                     <?php
                     $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
@@ -184,46 +184,46 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                     $idsList = "'" . implode("','", $ids) . "'";
                     ?>
                     <?php renderSelect(
-                            'model',
-                            'montelo',
-                            'onomasia',
-                            'Μοντέλο',
-                            $selected_model,
-                            '-- Όλα τα μοντέλα --',
-                            true,
-                            "id_etairias IN ($idsList)"
-                            ); 
-                            
-                            renderSelect(
-                                'katastash',
-                                'autokinhto',
-                                'katastash',
-                                'Κατάσταση',
-                                $selected_katastash,
-                                '-- Όλες οι καταστάσεις --',
-                                true
-                            );
+                        'model',
+                        'montelo',
+                        'onomasia',
+                        '',
+                        $selected_model,
+                        '-- Μοντέλο --',
+                        true,
+                        "id_etairias IN ($idsList)"
+                    );
 
-                            renderSelect(
-                                'xrwma',
-                                'autokinhto',
-                                'xrwma',
-                                'Χρωμα',
-                                $selected_xrwma,
-                                '-- Όλα τα χρωματα --',
-                                true
-                            );
+                    renderSelect(
+                        'katastash',
+                        'autokinhto',
+                        'katastash',
+                        '',
+                        $selected_katastash,
+                        '-- Κατάσταση --',
+                        true
+                    );
 
-                            renderSelect(
-                                'eidos_mhxanhs',
-                                'autokinhto',
-                                'eidos_mhxanhs',
-                                'Ειδος μηχανες',
-                                $selected_eidos_mhxanhs,
-                                '-- Όλες οι μηχανες --',
-                                true
-                            );
-                        ?>
+                    renderSelect(
+                        'xrwma',
+                        'autokinhto',
+                        'xrwma',
+                        '',
+                        $selected_xrwma,
+                        '-- Χρωμα --',
+                        true
+                    );
+
+                    renderSelect(
+                        'eidos_mhxanhs',
+                        'autokinhto',
+                        'eidos_mhxanhs',
+                        '',
+                        $selected_eidos_mhxanhs,
+                        '-- Είδος μηχανής --',
+                        true
+                    );
+                    ?>
                     <input
                         type="text"
                         class="ui-input"
@@ -236,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                         name="timh2"
                         placeholder="Τιμή έως"
                         value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>">
-                    <br>
+
                     <input
                         type="text"
                         class="ui-input"
@@ -253,9 +253,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                 </form>
             </div>
         </div>
-<!--=====================================================================================================-->
-<!------------------------------------------------- TABLE ------------------------------------------------->
-<!--=====================================================================================================-->
+        <!--=====================================================================================================-->
+        <!------------------------------------------------- TABLE ------------------------------------------------->
+        <!--=====================================================================================================-->
+        <div class="table_block" style="justify-content: left;">
             <?php
             // Show table with combined filters
             ShowTable('Autokinhta_view', $where);

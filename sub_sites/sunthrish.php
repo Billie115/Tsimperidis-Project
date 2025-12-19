@@ -59,7 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
             <!--======================================================================================================-->
             <div class="filter_block">
                 <h2>Filters</h2>
-                <form method="POST">
+                <form method="POST" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
+
+
                     <input type="text" name="suntirishs" placeholder="id_suntirishs">
                     <p>Από: <input id="apo" name="apo_rand" type="date"></p>
                     <p>Εώς: <input id="eos" name="eos_rand" type="date"></p>

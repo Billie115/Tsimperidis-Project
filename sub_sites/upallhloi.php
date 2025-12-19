@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
             <!--======================================================================================================-->
             <div class="filter_block">
                 <h2>Filters</h2>
-                <form method="post">
+                <form method="post" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
                     <?php
                     // Read filters
                     $id_upallhlou = trim($_POST['id_upallhlou'] ?? '');
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
 
                     if ($idikothta !== '') $whereParts[] = "idikothta LIKE '$idikothta%'";
 
-                    $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1";?>
+                    $where = !empty($whereParts) ? implode(" AND ", $whereParts) : "1"; ?>
 
                     <input type="text" name="id_upallhlou" placeholder="Κωδικός Υπαλλήλου" value="<?= htmlspecialchars($_POST['id_upallhlou'] ?? '') ?>">
                     <input type="text" name="onoma" placeholder="Όνομα" value="<?= htmlspecialchars($_POST['onoma'] ?? '') ?>">
@@ -95,16 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                     <input type="text" name="thlefwno2" placeholder="Τηλέφωνο 2" value="<?= htmlspecialchars($_POST['thlefwno2'] ?? '') ?>">
                     <input type="date" name="hm_proslhpshs_apo" placeholder="ημ/νια απο" value="<?= htmlspecialchars($_POST['hm_proslhpshs_apo'] ?? '') ?>">
                     <input type="date" name="hm_proslhpshs_eos" placeholder="ημ/νια εως" value="<?= htmlspecialchars($_POST['hm_proslhpshs_eos'] ?? '') ?>">
-                    <?php 
-                        renderSelect(
-                            'idikothta',
-                            'upallhloi',
-                            'idikothta',
-                            'Ιδιότητα',
-                            $idikothta,
-                            '-- Όλοι οι υπαλληλοι --',
-                            true
-                        );
+                    <?php
+                    renderSelect(
+                        'idikothta',
+                        'upallhloi',
+                        'idikothta',
+                        'Ιδιότητα',
+                        $idikothta,
+                        '-- Όλοι οι υπαλληλοι --',
+                        true
+                    );
 
                     ?>
                     <button type="submit">Φιλτράρισμα</button>
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
         <div class="table_block">
             <div class="panel-header">
                 <?php
-                    ShowTable('upallhloi', $where);
+                ShowTable('upallhloi', $where);
                 ?>
             </div>
         </div>
