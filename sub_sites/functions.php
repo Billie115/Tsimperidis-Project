@@ -116,22 +116,22 @@ function ShowTable($table, $where = '')
     } else {
         echo '<p>No records found.</p>';
     }
-}
-
-function renderSelect(
-    $name,
-    $table,
-    $valueColumn,
-    $displayLabel,
-    $selected = '',
-    $defaultLabel = '-- Όλες οι επιλογές --',
-    $onchangeSubmit = false,
-    $where = ''
+    
+    function renderSelect(
+    $name, 
+    $table, 
+    $valueColumn, 
+    $displayLabel, 
+    $selected = '', 
+    $defaultLabel = '-- Όλες οι επιλογές --', 
+    $onchangeSubmit = false, 
+    $where = '1'
 ) {
     global $conn;
 
     // Fetch options with optional WHERE
-    $options = select($valueColumn, $table, $where);
+    $options = select("DISTINCT $valueColumn", $table, $where);
+
 
     echo "<div class='ui-select-wrapper'>";
 

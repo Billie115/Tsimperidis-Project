@@ -97,16 +97,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
             // Read filters (single selection)
             $selected_car = $_POST['car'] ?? '';
             $selected_model = $_POST['model'] ?? '';
+            $selected_katastash = $_POST['katastash'] ??'';
+            $selected_xrwma = $_POST['xrwma'] ??'';
+            $selected_eidos_mhxanhs = $_POST['eidos_mhxanhs'] ??'';
 
             // Read prices from POST
             $price1 = $_POST['timh1'] ?? '';
             $price2 = $_POST['timh2'] ?? '';
 
+            // Read κιβικα from POST
+            $kibhka_apo = $_POST['kibhka_apo'] ?? '';
+            $kibhka_eos = $_POST['kibhka_eos'] ?? '';
+
             // Escape inputs
             $selected_car = mysqli_real_escape_string($conn, $selected_car);
             $selected_model = mysqli_real_escape_string($conn, $selected_model);
+            $selected_katastash = mysqli_real_escape_string($conn, $selected_katastash);
+            $selected_xrwma = mysqli_real_escape_string($conn, $selected_xrwma);
+            $selected_eidos_mhxanhs = mysqli_real_escape_string($conn, $selected_eidos_mhxanhs);
             $price1 = mysqli_real_escape_string($conn, $price1);
             $price2 = mysqli_real_escape_string($conn, $price2);
+
+            $kibhka_apo = mysqli_real_escape_string($conn, $kibhka_apo);
+            $kibhka_eos = mysqli_real_escape_string($conn, $kibhka_eos);
 
             // Build WHERE clause for brand/model
             $whereParts = [];
@@ -119,12 +132,32 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                 $whereParts[] = "montelo = '$selected_model'";
             }
 
+            if ($selected_katastash !==  ''){
+                $whereParts[] = "katastash = '$selected_katastash'";
+            }
+
+            if ($selected_eidos_mhxanhs !==  ''){
+                $whereParts[] = "eidos_mhxanhs = '$selected_eidos_mhxanhs'";
+            }
+
+            if ($selected_xrwma !==  ''){
+                $whereParts[] = "xrwma = '$selected_xrwma'";
+            }
+
             if (is_numeric($price1) && is_numeric($price2)) {
                 $whereParts[] = "endiktikh_timh BETWEEN $price1 AND $price2";
             } elseif (is_numeric($price1)) {
                 $whereParts[] = "endiktikh_timh >= $price1";
             } elseif (is_numeric($price2)) {
                 $whereParts[] = "endiktikh_timh <= $price2";
+            }
+
+            if (is_numeric($kibhka_apo) && is_numeric($kibhka_eos)) {
+                $whereParts[] = "kibhka BETWEEN $kibhka_apo AND $kibhka_eos";
+            } elseif (is_numeric($kibhka_apo)) {
+                $whereParts[] = "kibhka >= $kibhka_apo";
+            } elseif (is_numeric($kibhka_eos)) {
+                $whereParts[] = "kibhka <= $kibhka_eos";
             }
 
             $where = $whereParts ? implode(' AND ', $whereParts) : '1';
@@ -143,15 +176,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                         true
                     );
                     ?>
-                    <br><br>
+                    <br>
                     <!-- Models -->
-                    <?php if (!empty($selected_car)): ?>
-                        <?php
-                        $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
-                        $ids = array_map(fn($b) => $b['id_etairias'], $brandIds);
-                        $idsList = "'" . implode("','", $ids) . "'";
-                        ?>
-                        <?php renderSelect(
+                    <?php
+                    $brandIds = select('id_etairias', 'etairia', "onoma = '$selected_car'");
+                    $ids = array_map(fn($b) => $b['id_etairias'], $brandIds);
+                    $idsList = "'" . implode("','", $ids) . "'";
+                    ?>
+                    <?php renderSelect(
                             'model',
                             'montelo',
                             'onomasia',
@@ -160,8 +192,38 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                             '-- Όλα τα μοντέλα --',
                             true,
                             "id_etairias IN ($idsList)"
-                        ); ?>
-                    <?php endif; ?>
+                            ); 
+                            
+                            renderSelect(
+                                'katastash',
+                                'autokinhto',
+                                'katastash',
+                                'Κατάσταση',
+                                $selected_katastash,
+                                '-- Όλες οι καταστάσεις --',
+                                true
+                            );
+
+                            renderSelect(
+                                'xrwma',
+                                'autokinhto',
+                                'xrwma',
+                                'Χρωμα',
+                                $selected_xrwma,
+                                '-- Όλα τα χρωματα --',
+                                true
+                            );
+
+                            renderSelect(
+                                'eidos_mhxanhs',
+                                'autokinhto',
+                                'eidos_mhxanhs',
+                                'Ειδος μηχανες',
+                                $selected_eidos_mhxanhs,
+                                '-- Όλες οι μηχανες --',
+                                true
+                            );
+                        ?>
                     <input
                         type="text"
                         class="ui-input"
@@ -174,6 +236,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                         name="timh2"
                         placeholder="Τιμή έως"
                         value="<?= htmlspecialchars($_POST['timh2'] ?? '') ?>">
+                    <br>
+                    <input
+                        type="text"
+                        class="ui-input"
+                        name="kibhka_apo"
+                        placeholder="Κηβικα από"
+                        value="<?= htmlspecialchars($_POST['kibhka_apo'] ?? '') ?>">
+                    <input
+                        type="text"
+                        class="ui-input"
+                        name="kibhka_eos"
+                        placeholder="Κηβικα έως"
+                        value="<?= htmlspecialchars($_POST['kibhka_eos'] ?? '') ?>">
                     <button type="submit" class="ui-btn">Φιλτράρισμα</button>
                 </form>
             </div>
