@@ -76,8 +76,8 @@ function update($table, $data, $where)
     }
 }
 
-function ShowTable($table, $where = '')
-{
+function ShowTable($table, $where = ''){
+    
     global $conn;
 
     // Get column names
@@ -116,7 +116,7 @@ function ShowTable($table, $where = '')
     } else {
         echo '<p>No records found.</p>';
     }
-    
+}
     function renderSelect(
     $name, 
     $table, 
@@ -125,33 +125,32 @@ function ShowTable($table, $where = '')
     $selected = '', 
     $defaultLabel = '-- Όλες οι επιλογές --', 
     $onchangeSubmit = false, 
-    $where = '1'
-) {
-    global $conn;
+    $where = '1'){
+        global $conn;
 
-    // Fetch options with optional WHERE
-    $options = select("DISTINCT $valueColumn", $table, $where);
+        // Fetch options with optional WHERE
+        $options = select("DISTINCT $valueColumn", $table, $where);
 
 
-    echo "<div class='ui-select-wrapper'>";
+        echo "<div class='ui-select-wrapper'>";
 
-    echo "<label for=\"$name\" class=\"ui-label\">$displayLabel</label>";
+        echo "<label for=\"$name\" class=\"ui-label\">$displayLabel</label>";
 
-    echo "<select id=\"$name\" name=\"$name\" class=\"ui-select\"";
-    if ($onchangeSubmit) echo " onchange=\"this.form.submit()\"";
-    echo ">";
+        echo "<select id=\"$name\" name=\"$name\" class=\"ui-select\"";
+        if ($onchangeSubmit) echo " onchange=\"this.form.submit()\"";
+        echo ">";
 
-    // Default "All" option
-    $selectedAttr = $selected === '' ? 'selected' : '';
-    echo "<option value=\"\" $selectedAttr>$defaultLabel</option>";
+        // Default "All" option
+        $selectedAttr = $selected === '' ? 'selected' : '';
+        echo "<option value=\"\" $selectedAttr>$defaultLabel</option>";
 
-    // Loop options
-    foreach ($options as $opt) {
-        $value = htmlspecialchars($opt[$valueColumn]);
-        $isSelected = ($selected === $value) ? 'selected' : '';
-        echo "<option value=\"$value\" $isSelected>$value</option>";
+        // Loop options
+        foreach ($options as $opt) {
+            $value = htmlspecialchars($opt[$valueColumn]);
+            $isSelected = ($selected === $value) ? 'selected' : '';
+            echo "<option value=\"$value\" $isSelected>$value</option>";
+        }
+        echo "</select>";
+        echo "</div>";
     }
-
-    echo "</select>";
-    echo "</div>";
-}
+    ?>
