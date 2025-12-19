@@ -123,12 +123,13 @@
     $selected = '', 
     $defaultLabel = '-- Όλες οι επιλογές --', 
     $onchangeSubmit = false, 
-    $where = ''
+    $where = '1'
 ) {
     global $conn;
 
     // Fetch options with optional WHERE
-    $options = select($valueColumn, $table, $where);
+    $options = select("DISTINCT $valueColumn", $table, $where);
+
 
     echo "<div class='ui-select-wrapper'>";
 
