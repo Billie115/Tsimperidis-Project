@@ -87,9 +87,49 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                     <button type="submit" name="add">Προσθήκη</button>
                 </form>
             </div>
-            <!--======================================================================================================-->
-            <!------------------------------------------------- FILTER ------------------------------------------------->
-            <!--======================================================================================================-->
+<!--======================================================================================================-->
+<!------------------------------------------------- FILTER ------------------------------------------------->
+<!--======================================================================================================-->
+        <div class="table_block">
+            <?php
+            global $conn;
+
+            // Read filters (single selection)
+            $selected_car = $_POST['car'] ?? '';
+            $selected_model = $_POST['model'] ?? '';
+
+            // Read prices from POST
+            $price1 = $_POST['timh1'] ?? '';
+            $price2 = $_POST['timh2'] ?? '';
+
+            // Escape inputs
+            $selected_car = mysqli_real_escape_string($conn, $selected_car);
+            $selected_model = mysqli_real_escape_string($conn, $selected_model);
+            $price1 = mysqli_real_escape_string($conn, $price1);
+            $price2 = mysqli_real_escape_string($conn, $price2);
+
+            // Build WHERE clause for brand/model
+            $whereParts = [];
+
+            if ($selected_car !== '') {
+                $whereParts[] = "marka = '$selected_car'";
+            }
+
+            if ($selected_model !== '') {
+                $whereParts[] = "montelo = '$selected_model'";
+            }
+
+            if (is_numeric($price1) && is_numeric($price2)) {
+                $whereParts[] = "endiktikh_timh BETWEEN $price1 AND $price2";
+            } elseif (is_numeric($price1)) {
+                $whereParts[] = "endiktikh_timh >= $price1";
+            } elseif (is_numeric($price2)) {
+                $whereParts[] = "endiktikh_timh <= $price2";
+            }
+
+            $where = $whereParts ? implode(' AND ', $whereParts) : '1';
+            ?>
+            
             <div class="filter_block">
                 <form method="post">
                     <!-- Car brands -->
@@ -138,65 +178,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
                 </form>
             </div>
         </div>
-        <!--=====================================================================================================-->
-        <!------------------------------------------------- TABLE ------------------------------------------------->
-        <!--=====================================================================================================-->
-        <div class="table_block">
+<!--=====================================================================================================-->
+<!------------------------------------------------- TABLE ------------------------------------------------->
+<!--=====================================================================================================-->
             <?php
-            global $conn;
-
-            // Read filters (single selection)
-            $selected_car = $_POST['car'] ?? '';
-            $selected_model = $_POST['model'] ?? '';
-
-            // Read prices from POST
-            $price1 = $_POST['timh1'] ?? '';
-            $price2 = $_POST['timh2'] ?? '';
-
-            // Escape inputs
-            $selected_car = mysqli_real_escape_string($conn, $selected_car);
-            $selected_model = mysqli_real_escape_string($conn, $selected_model);
-            $price1 = mysqli_real_escape_string($conn, $price1);
-            $price2 = mysqli_real_escape_string($conn, $price2);
-
-            // Build WHERE clause for brand/model
-            $whereParts = [];
-
-            if ($selected_car !== '') {
-                $whereParts[] = "
-                    montelo IN (
-                        SELECT montelo.id_montelou
-                        FROM montelo
-                        INNER JOIN etairia ON montelo.id_etairias = etairia.id_etairias
-                        WHERE etairia.onoma = '$selected_car'
-                        " . ($selected_model !== '' ? "AND montelo.onomasia = '$selected_model'" : "") . "
-                    )
-                ";
-            }
-            // Build WHERE clause for price
-            if ($price1 !== '' && $price2 !== '') {
-                $whereParts[] = "endiktikh_timh BETWEEN $price1 AND $price2";
-            } elseif ($price1 !== '') {
-                $whereParts[] = "endiktikh_timh >= $price1";
-            } elseif ($price2 !== '') {
-                $whereParts[] = "endiktikh_timh <= $price2";
-            }
-
-            // Combine all WHERE conditions
-            $where = !empty($whereParts) ? implode(' AND ', $whereParts) : '1';
-
-            // Load models if a brand was selected
-            $models = [];
-            if ($selected_car !== '') {
-                $models = select(
-                    "onomasia",
-                    "montelo INNER JOIN etairia ON montelo.id_etairias = etairia.id_etairias",
-                    "etairia.onoma = '$selected_car'"
-                );
-            }
-
             // Show table with combined filters
-            ShowTable('Autokinhta_view');
+            ShowTable('Autokinhta_view', $where);
             ?>
         </div>
 
