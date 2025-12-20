@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add'])) {
             <!--======================================================================================================-->
             <div class="filter_block">
                 <h2>Filters</h2>
-                <form method="POST">
+                <form method="POST" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
                     <input type="text" name="polishs" placeholder="id_polishs">
                     <p>Από: <input id="apo" name="apo" type="date"></p>
                     <p>Εώς: <input id="eos" name="eos" type="date"></p>
